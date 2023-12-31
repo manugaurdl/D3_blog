@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="template.v2.js"></script>
+        <script src="contents_bar.js"></script>
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="https://d3js.org/d3-collection.v1.min.js"></script>
+        <script src="https://rawgit.com/nstrayer/slid3r/master/dist/slid3r.js"></script>
+        <script src="cross_fade.js"></script>
+        <link rel="stylesheet" href="style.css">
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js" integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ" crossorigin="anonymous"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+            onload="renderMathInElement(document.body);"></script>
+    </head>
+    <body>
+        <div class="header-container">
+            <div class="header-content">
+              <h1>Eyes Wide Shut? Exploring the Visual Shortcomings of Multimodal LLMs</h1>
+              <div class="button-container">
+                <a href="#" class="button">Paper</a>
+                <a href="#" class="button">Code</a>
+              </div>
+            </div>
+            <!-- <div class="header-image">
+                <img src="images/teaser.png" alt="Teaser Image" class="teaser-image">
+            </div> -->
+        </div>
+    <d-article>
+        <div class="byline">
+            <div class="byline-container">
+                <div class="byline-column">
+                    <h3>Authors</h3>
+                    <p><a href="https://tsb0601.github.io/petertongsb/" class="author-link">Shengbang Tong</a></p>
+                    <p><a href="https://liuzhuang13.github.io/" class="author-link">Zhuang Liu</a></p>
+                    <p><a href="https://yx-s-z.github.io/" class="author-link">Yuexiang Zhai</a></p>
+                    <p><a href="https://people.eecs.berkeley.edu/~yima/" class="author-link">Yi Ma</a></p>
+                    <p><a href="https://yann.lecun.com/" class="author-link">Yann LeCun</a></p>
+                    <p><a href="https://www.sainingxie.com/" class="author-link">Saining Xie</a></p>
+                </div>
+                <div class="byline-column">
+                    <h3>Affiliations</h3>
+                    <p>New York University</a></p>
+                    <p>Meta AI</a></p>
+                    <p>UC Berkeley</a></p>
+                    <p>UC Berkeley</a></p>
+                    <p>New York University</a></p>
+                    <p>New York University</a></p>
+                </div>
+                <div class="byline-column">
+                    <h3>Date</h3>
+                    <p>Dec. 27, 2023</p>
+                </div>
+            </div>
+        </div>
+        <!-- BEGIN: ed8c6549bwf9 -->
+        <img src="images/teaser.png" alt="Teaser Image" class="teaser-image">
+        <!-- END: ed8c6549bwf9 -->
+        <d-contents>
+            <nav>
+                <h4>Contents</h4>
+                <div><a href="#introduction">MMVP Benchmark</a></div>
+                <div><a href="#framework">Systematic Failures in CLIP</a></div>
+                <div><a href="#SEALBench">MoF-MLLM</a></div>
+            </nav>
+        </d-contents>
+        
+        <p>Is vision good enough for language? Recent advancements in multimodal models primarily stem from the powerful reasoning abilities of large language models (LLMs). However, the visual component typically depends only on
+            the instance-level contrastive language-image pre-training (CLIP). Our research reveals that the visual capabilities in recent MultiModal LLMs (MLLMs) still exhibit systematic shortcomings. 
+        </p>
+        <section id="introduction">
+            <h2>Multimodal Visual Patterns (MMVP) Benchmark</h2>
+            <p>
+               To understand the visual incapilities of multimodal LLMs, we delve into the visual encoder (CLIP models). We find ambiguities in CLIP embedding via "clip-blind pairs": Images that are visually different yet encoded similarly by CLIP models.  
+               <d-figure>
+                <figure>
+                    <img src="images/pipeline.png" alt="MMVP Framework">
+                    <figcaption>We start with finding CLIP-blind pairs that have similar CLIP embedding but different DINOv2 embedding. We manually inspect the differences between pair-wise images and formulate
+                        questions based on the differences in the images. We then ask MLLMs the question alongside the CLIP-blind pair. The model receives a score only when both questions for the CLIP-blind pair are answered correctly.
+                    </figcaption></figcaption>
+                </figure>
+            </d-figure>
+            </p>
+            <p>
+                We assess the questions on SOTA open-source models (LLaVA-1.5, InstructBLIP, Mini-GPT4) and closed-source models (GPT-4V, Gemini,
+                Bard). We also evaluate huamn performance through user studies. There is a significant performance gap between human and MLLM models, despite the latter often demonstrating impressive results. Models except GPT-4V and Gemini, scored below random guess level
+                (25%). Most advanced GPT-4V and Gemini also face challenges in addressing basic visual grounding questions. 
+                <figure>
+                    <img src="images/result.png" alt="MMVP Framework">
+                    <figcaption> There is a huge gap between human performance and MLLM's performance on the simple visual questions in MMVP Benchmark. 
+                    </figcaption></figcaption>
+                </figure>
+            </p>
+        </section>
+        <section id="framework">
+            <h2>Systematic Failures in CLIP</h2>
+            <p>
+                Having identified the CLIP-blind pairs, we summarize systematic visual patterns that the CLIP vision encoders might consistently misinterpret. We turn to the questions and options from the MMVP benchmark. With these questions, we transform abstract visual patterns in images into clearer, language-based descriptors that are easier to categorize. We identify 9 visual patterns:  
+            <table>
+                <tr>
+                    <th><i class="fa fa-compass"></i></th>
+                    <td>Orientation and Direction</td>
+                </tr>
+                <tr>
+                    <th><i class="fa fa-search"></i></th>
+                    <td>Presence of Specific Features</td>
+                </tr>
+                <tr>
+                    <th><i class="fa fa-sync"></i></th>
+                    <td>State and Condition</td>
+                </tr>
+                <tr>
+                    <th><i class="fa fa-sort-numeric-up"></i></th>
+                    <td>Quantity and Count</td>
+                </tr>
+                <tr>
+                    <th><i class="fa fa-map-pin"></i></th>
+                    <td>Positional and Relational Context</td>
+                </tr>
+                <tr>
+                    <th><i class="fa fa-palette"></i></th>
+                    <td>Color and Appearance</td>
+                </tr>
+                <tr>
+                    <th><i class="fa fa-cogs"></i></th>
+                    <td>Structural and Physical Characteristics</td>
+                </tr>
+                <tr>
+                    <th><i class="fa fa-font"></i></th>
+                    <td>Text</td>
+                </tr>
+                <tr>
+                    <th><i class="fa fa-camera"></i></th>
+                    <td>Viewpoint and Perspective</td>
+                </tr>
+            </table>
+
+            
+                            </p>
+            <h3 id="VQALLM">Scaling Up CLIP Doesn't Improve</h3>
+            <p>
+
+                We plot CLIP’s performance and MLLMs' performance for each visual pattern. When the CLIP vision encoder underperforms on a certain visual pattern, the MLLM tends to exhibit similar shortcomings. Open-source models such as LLaVA 1.5 and InstructBLIP that explicitly use the CLIP vision encoder display a strong correlation in performance.
+                <d-figure>
+                    <img src="images/correlation.png" alt="SEAL-Bench Results" width="100%" style="display: block; margin-left: auto; margin-right: auto;">
+                    <figcaption> If CLIP performs poorly on a visual pattern such as ``orientation'', MLLMs also underperform on the visual pattern. </d-figure>
+
+            </p>
+        </section>
+        
+        <section id="SEALBench">
+            <h2>Mixture-Of-Features (MoF) MLLM</h2>  
+            <p>
+                <em>If open-sourced MLLM's visual shortcomings come from the CLIP vision encoder, how do we build a more competent visual encoder?</em> We take initial steps to answer the question by studying Mixture-of-Features (MoF) that mixs Vision-Only SSL (DINOv2) features and CLIP features. 
+                          <d-figure>
+                        <img src="images/mof_pipeline.png" alt="SEAL-Bench Results" width="100%" style="display: block; margin-left: auto; margin-right: auto;">
+                        <figcaption>Different Mixture-of-Feature (MoF) Strategies in MLLM. Left: Standard MLLM that uses CLIP as off-the-shelf pretrained vision encoder; Middle: Additive-MoF (A-MoF) MLLM: Linearly mixing CLIP and DINOv2 features before the adapter; Right: InterleavedMoF (I-MoF MLLM) Spatially interleaving CLIP visual tokens and DINOv2 visual tokens after the adapter.
+                        </figcaption>
+                </d-figure>
+            </p>
+
+            <h3 id="VQALLM">Vision-Only SSL features: Better Vision, Worse Language</h3>
+            <p>
+
+                We add a pretrained DINOv2 encoder into MLLM and linearly mix the CLIP pretrained encoder with it. Our study reveals that 
+                <d-figure>
+                    <img src="images/A-MoF.png" alt="SEAL-Bench Results" width="100%" style="display: block; margin-left: auto; margin-right: auto;">
+
+                <ol>
+                    <li>As the proportion of DINOv2 features increases, MLLM exhibits a decline in its instruction-following capability. Notably, there is a sharp decrease when the DINOv2 proportion reaches 87.5%.</li>
+                    <li>A higher proportion of DINOv2 features enhances the model’s visual grounding capability, but this advantage diminishes when the DINOv2 proportion surpasses 0.75, at which point instruction-following is notably impaired.</li>
+                </ol>
+            </p>
+
+            <h3 id="VQALLM">Scaling Up CLIP Doesn't Improve</h3>
+            <p>
+
+                We plot CLIP’s performance and MLLMs' performance for each visual pattern. When the CLIP vision encoder underperforms on a certain visual pattern, the MLLM tends to exhibit similar shortcomings. Open-source models such as LLaVA 1.5 and InstructBLIP that explicitly use the CLIP vision encoder display a strong correlation in performance.
+                <d-figure>
+                    <img src="images/correlation.png" alt="SEAL-Bench Results" width="100%" style="display: block; margin-left: auto; margin-right: auto;">
+                    <figcaption> If CLIP performs poorly on a visual pattern such as ``orientation'', MLLMs also underperform on the visual pattern. </d-figure>
+
+            </p>
+        </section>
+        
+        
+        </d-article>
+        <d-appendix>
+            <h3>BibTeX</h3>
+            <p class="bibtex">
+                @article{SEAL,<br>
+                &nbsp;&nbsp;title={V*: Guided Visual Search as a Core Mechanism in Multimodal LLMs},<br>
+                &nbsp;&nbsp;author={Penghao Wu and Saining Xie},<br>
+                &nbsp;&nbsp;year={2023},<br>
+                &nbsp;&nbsp;journal={arXiv preprint arXiv:2312},<br>
+                }
+            </p>
+
+            <d-footnote-list></d-footnote-list>
+            <d-citation-list></d-citation-list>
+          </d-appendix>
+          
+            <d-footnote-list></d-footnote-list>
+            <d-citation-list></d-citation-list>
+        </d-appendix>
+
+          <!-- bibliography will be inlined during Distill pipeline's pre-rendering -->
+        <d-bibliography src="bibliography.bib"></d-bibliography>
+
+        <!-- <script type="text/bibliography">
+        
+        </script> -->
+        <script>
+            var dContents = document.querySelector('d-contents');
+            var dArticle = document.querySelector('d-article');
+            // Get the computed style of the element to access the margin
+            var computedStyle = window.getComputedStyle(dContents);
+            // Get the top margin as an integer
+            var marginTop = parseInt(computedStyle.marginTop, 10);
+            // Calculate the original top offset plus the margin-top
+            var originalOffsetTop = dContents.offsetTop;
+            var originalOffsetLeft = dContents.offsetLeft;
+            var originalWidth = dContents.offsetWidth; // This should include padding if box-sizing is border-box
+        
+            // Function to handle the resize event
+            function onResize() {
+                // Recalculate original left and width on resize
+                originalOffsetLeft = dContents.offsetLeft;
+                originalWidth = dContents.offsetWidth; // This should include padding if box-sizing is border-box
+            }
+        
+            // Add the resize event listener
+            window.addEventListener('resize', onResize);
+        
+            window.addEventListener('scroll', function() {
+                var scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+                var dArticleBottom = dArticle.offsetTop + dArticle.offsetHeight;
+                var dContentsActualTop = scrollPosition > originalOffsetTop ? scrollPosition : originalOffsetTop;
+                var dContentsBottom = dContentsActualTop + dContents.offsetHeight;
+                console.log("dArticleBottom", dArticleBottom)
+                console.log("dContentsBottom", dContentsBottom)
+                if (dContentsBottom >= dArticleBottom) {
+                    // Make d-contents invisible
+                    dContents.style.visibility = 'hidden';
+                } else {
+                    // Make d-contents visible
+                    dContents.style.visibility = 'visible';
+                }
+
+                // Adjust the condition to account for margin-top
+                if (scrollPosition + marginTop >= originalOffsetTop) {
+                    dContents.style.position = 'fixed';
+                    dContents.style.top = '0px';
+                    dContents.style.left = originalOffsetLeft + 'px'; // Maintain the original horizontal position
+                    dContents.style.width = originalWidth + 'px'; // Maintain the original width
+                } else {
+                    dContents.style.position = '';
+                    dContents.style.top = '';
+                    dContents.style.left = '';
+                    dContents.style.width = ''; // Allow the width to be automatic
+                }
+
+                
+            });
+
+            
+        
+            // Initialize width and position
+            onResize();
+        </script>
+        
+        <script>
+            // Function to determine which section is in view
+            function getActiveSection() {
+                var sections = document.querySelectorAll('section'); // Assuming your sections have a 'section' tag
+                var scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+        
+                for (var i = 0; i < sections.length; i++) {
+                    if (sections[i].offsetTop <= scrollPosition && sections[i].offsetTop + sections[i].offsetHeight > scrollPosition) {
+                        return sections[i].id;
+                    }
+                }
+                return null;
+            }
+        
+            // Function to update the navigation items
+            function updateNavigation() {
+                var activeSection = getActiveSection();
+                var navLinks = document.querySelectorAll('d-contents nav a');
+        
+                navLinks.forEach(function(navLink) {
+                    if (navLink.getAttribute('href') === '#' + activeSection) {
+                        navLink.classList.add('active-nav-item');
+                    } else {
+                        navLink.classList.remove('active-nav-item');
+                    }
+                });
+            }
+        
+            // Add the scroll event listener
+            window.addEventListener('scroll', updateNavigation);
+        
+            // Initial update
+            updateNavigation();
+        </script>
+        
+        
+        
+
+    </body>
+</html>
