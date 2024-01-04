@@ -16,6 +16,187 @@
         <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js" integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ" crossorigin="anonymous"></script>
         <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
             onload="renderMathInElement(document.body);"></script>
+        
+
+
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Simple Image Carousel</title>
+
+
+            <style>
+                /* Styling for the table */
+                table, th, td {
+                    border: 1px solid black;
+                    border-collapse: collapse;
+                }
+                th, td {
+                    padding: 10px;
+                    text-align: left;
+                    cursor: pointer;
+                }
+        
+                /* Styling for the carousel */
+                .carousel-container {
+                    width: 100%;
+                    max-width: 600px;
+                    margin: auto;
+                    position: relative;
+                    overflow: hidden;
+                    align-items: center;
+                }
+                .carousel-slide {
+                    display: none;
+                    width: 100%;
+                    height: 300px;
+                    position: center;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                .carousel-slide.active {
+                    display: flex;
+                }
+                .carousel-slide img {
+                    max-width: 100%;
+                    max-height: 300px;
+                    width: auto;
+                    height: auto;
+                    margin: 0%;
+                    transform: translateX(180px);
+                }
+                .carousel-controls {
+                    position: absolute;
+                    top: 50%;
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-between;
+                    transform: translateY(-50%);
+                }
+                .carousel-button {
+                    background: none;
+                    border: none;
+                    cursor: pointer;
+                    font-size: 24px;
+                }
+        
+                /* Additional styles can go here */
+            </style>
+
+            <!-- <style>
+                /* Add your CSS styling here */
+                table, th, td {
+                    border: 1px solid black;
+                    border-collapse: collapse;
+                }
+                th, td {
+                    padding: 10px;
+                    text-align: left;
+                }
+            </style>
+
+            <style>
+                .carousel-container {
+                    width: 100%;
+                    max-width: 600px;
+                    margin: auto;
+                    position: relative;
+                    overflow: hidden;
+                    align-items: center
+                }
+        
+                .carousel-slide {
+                    display: none;
+                    width: 100%;
+                    height: 300px; /* Set a fixed height for the slides */
+                    position: center;
+                    display: flex; /* Use flexbox for alignment */
+                    justify-content: center; /* Center horizontally */
+                    align-items: center; /* Align at the top */
+                }
+        
+                .carousel-slide.active {
+                    display: flex;
+                }
+        
+                .carousel-slide img {
+                    max-width: 100%; /* Maximum width of the image */
+                    max-height: 300px; /* Maximum height of the image */
+                    width: auto; /* Maintain aspect ratio */
+                    height: auto; /* Maintain aspect ratio */
+                    margin:0%; /* Auto margins for horizontal centering */
+                    transform: translateX(180px); /* Move image 50px to the right */
+                }
+        
+                .carousel-controls {
+                    position: absolute;
+                    top: 50%;
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-between;
+                    transform: translateY(-50%);
+                }
+        
+                .carousel-button {
+                    background: none;
+                    border: none;
+                    cursor: pointer;
+                    font-size: 24px;
+                }
+            </style>
+
+            <title>Interactive Image Display Table</title>
+            <style>
+                /* Basic styling for the table */
+                table, th, td {
+                    border: 1px solid black;
+                    border-collapse: collapse;
+                }
+                th, td {
+                    padding: 10px;
+                    text-align: left;
+                    cursor: pointer; /* Optional: Changes the cursor on hover */
+                }
+                img {
+                    max-width: 100%;
+                    height: auto;
+                    display: none; /* Image is hidden by default */
+                    margin-top: 10px;
+                }
+            </style>  -->
+
+      
+        <!-- <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Swiper Carousel</title>
+        <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
+        <style>
+        
+    
+            .swiper-container {
+            width: 100%; /* Full width of the parent container */
+            max-width: 600px; /* Maximum width */
+            height: auto; /* Height is set to auto to maintain aspect ratio */
+            margin: auto;
+            }
+
+            .swiper-slide img {
+                width: 100%; /* Make images responsive */
+                height: auto; /* Maintain aspect ratio */
+            }
+
+            .swiper-caption {
+                position: absolute;
+                bottom: 10px;
+                left: 0;
+                width: 100%;
+                text-align: center;
+                font-size: 1.2em;
+                color: white;
+                background-color: rgba(0, 0, 0, 0.5);
+                padding: 5px;
+            }
+        </style> -->
     </head>
     <body>
         <div class="header-container">
@@ -26,9 +207,9 @@
                 <a href="#" class="button">Code</a>
               </div>
             </div>
-            <!-- <div class="header-image">
-                <img src="images/teaser.png" alt="Teaser Image" class="teaser-image">
-            </div> -->
+            <div class="header-image">
+                <img src="images/teaser_head.png" alt="Teaser Image" class="teaser-image">
+            </div>
         </div>
     <d-article>
         <div class="byline">
@@ -57,9 +238,57 @@
                 </div>
             </div>
         </div>
-        <!-- BEGIN: ed8c6549bwf9 -->
-        <img src="images/teaser.png" alt="Teaser Image" class="teaser-image">
-        <!-- END: ed8c6549bwf9 -->
+        
+
+        
+        <div class="carousel-container">
+            <div class="carousel-slide active">
+                <img src="images/failure1.png" alt="Teaser Image 1">
+            </div>
+            <div class="carousel-slide active">
+                <img src="images/failure2.png" alt="Teaser Image 2">
+            </div>
+            <div class="carousel-slide active">
+                <img src="images/failure3.png" alt="Teaser Image 3">
+            </div>
+            <div class="carousel-slide active">
+                <img src="images/failure4.png" alt="Teaser Image 4">
+            </div>
+            <div class="carousel-slide active">
+                <img src="images/failure5.png" alt="Teaser Image 5">
+            </div>
+            <div class="carousel-slide active">
+                <img src="images/failure6.png" alt="Teaser Image 6">
+            </div>
+
+            <!-- ... more slides ... -->
+
+            <div class="carousel-controls">
+                <button class="carousel-button" onclick="moveSlide(-1)">&#10094;</button>
+                <button class="carousel-button" onclick="moveSlide(1)">&#10095;</button>
+            </div>
+        </div>
+
+<script>
+    let slideIndex = 0;
+    showSlides(slideIndex);
+
+    function moveSlide(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function showSlides(n) {
+        let i;
+        let slides = document.getElementsByClassName("carousel-slide");
+        if (n >= slides.length) { slideIndex = 0 }
+        if (n < 0) { slideIndex = slides.length - 1 }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slides[slideIndex].style.display = "block";
+    }
+</script>
+        
         <d-contents>
             <nav>
                 <h4>Contents</h4>
@@ -98,56 +327,98 @@
         </section>
         <section id="framework">
             <h2>Systematic Failures in CLIP</h2>
+
+          
+            
+           
             <p>
                 Having identified the CLIP-blind pairs, we summarize systematic visual patterns that the CLIP vision encoders might consistently misinterpret. We turn to the questions and options from the MMVP benchmark. With these questions, we transform abstract visual patterns in images into clearer, language-based descriptors that are easier to categorize. We identify 9 visual patterns:  
-            <table>
-                <tr>
-                    <th><i class="fa fa-compass"></i></th>
-                    <td>Orientation and Direction</td>
-                </tr>
-                <tr>
-                    <th><i class="fa fa-search"></i></th>
-                    <td>Presence of Specific Features</td>
-                </tr>
-                <tr>
-                    <th><i class="fa fa-sync"></i></th>
-                    <td>State and Condition</td>
-                </tr>
-                <tr>
-                    <th><i class="fa fa-sort-numeric-up"></i></th>
-                    <td>Quantity and Count</td>
-                </tr>
-                <tr>
-                    <th><i class="fa fa-map-pin"></i></th>
-                    <td>Positional and Relational Context</td>
-                </tr>
-                <tr>
-                    <th><i class="fa fa-palette"></i></th>
-                    <td>Color and Appearance</td>
-                </tr>
-                <tr>
-                    <th><i class="fa fa-cogs"></i></th>
-                    <td>Structural and Physical Characteristics</td>
-                </tr>
-                <tr>
-                    <th><i class="fa fa-font"></i></th>
-                    <td>Text</td>
-                </tr>
-                <tr>
-                    <th><i class="fa fa-camera"></i></th>
-                    <td>Viewpoint and Perspective</td>
-                </tr>
-            </table>
+            
+                <table>
+                    <tr onclick="showImage('orientation')">
+                        <th><i class="fa fa-compass"></i></th>
+                        <td>Orientation and Direction</td>
+                    </tr>
+                    <tr onclick="showImage('presence')">
+                        <th><i class="fa fa-search"></i></th>
+                        <td>Presence of Specific Features</td>
+                    </tr>
+                    <tr onclick="showImage('state')">
+                        <th><i class="fa fa-sync"></i></th>
+                        <td>State and Condition</td>
+                    </tr>
+                    <tr onclick="showImage('quantity')">
+                        <th><i class="fa fa-sort-numeric-up"></i></th>
+                        <td>Quantity and Count</td>
+                    </tr>
+                    <tr onclick="showImage('color')">
+                        <th><i class="fa fa-palette"></i></th>
+                        <td>Color and Appearance</td>
+                    </tr>
+                    <tr onclick="showImage('positional')">
+                        <th><i class="fa fa-map-pin"></i></th>
+                        <td>Positional and Relational Context</td>
+                    </tr>
+                    <tr onclick="showImage('structural')">
+                        <th><i class="fa fa-cogs"></i></th>
+                        <td>Structural and Physical Characteristics</td>
+                    </tr>
+                    <tr onclick="showImage('texts')">
+                        <th><i class="fa fa-font"></i></th>
+                        <td>Text</td>
+                    </tr>
+                    <tr onclick="showImage('viewpoint')">
+                        <th><i class="fa fa-camera"></i></th>
+                        <td>Viewpoint and Perspective</td>
+                    </tr>
+                    <!-- Repeat for other categories -->
+                </table>
+                (Click on Visual Patterns to see examples)
 
+
+                <!-- Image placeholder -->
+                <img id="displayedImage" src="" alt="Category Image">
+
+                <script>
+                    var lastCategory = null;
+
+                    function showImage(category) {
+                        var imagePath = "images/Failure Categories/" + category + ".png";
+                        var displayedImage = document.getElementById('displayedImage');
+
+                        if(lastCategory === category) {
+                            displayedImage.style.display = displayedImage.style.display === 'none' ? 'block' : 'none';
+                        } else {
+                            displayedImage.src = imagePath;
+                            displayedImage.style.display = 'block';
+                        }
+
+                        lastCategory = category;
+                    }
+                </script>
+
+
+
+               
             
                             </p>
             <h3 id="VQALLM">Scaling Up CLIP Doesn't Improve</h3>
+            <p>
+                CLIP models develop and scale over the years. We evaluate MMVP on a variety of CLIP models. These models vary in aspects like size, training data, and methodology. As evidenced in the table, increasing network size and training data only aids in identifying two visual patterns – “color and appearance”
+                and “state and condition”. The rest of the visual patterns continue to challenge all CLIP-based models
+                <d-figure>
+                    <img src="images/clip.png" alt="SEAL-Bench Results" width="100%" style="display: block; margin-left: auto; margin-right: auto;">
+                    <figcaption> Models scaled up in resolution show minimal improvement, whereas a slight advantage is observed when scaling up the network. </figcaption></d-figure>
+
+            </p>
+
+            <h3 id="VQALLM">CLIP mistakes and MLLMs mistakes are correlated!</h3>
             <p>
 
                 We plot CLIP’s performance and MLLMs' performance for each visual pattern. When the CLIP vision encoder underperforms on a certain visual pattern, the MLLM tends to exhibit similar shortcomings. Open-source models such as LLaVA 1.5 and InstructBLIP that explicitly use the CLIP vision encoder display a strong correlation in performance.
                 <d-figure>
                     <img src="images/correlation.png" alt="SEAL-Bench Results" width="100%" style="display: block; margin-left: auto; margin-right: auto;">
-                    <figcaption> If CLIP performs poorly on a visual pattern such as ``orientation'', MLLMs also underperform on the visual pattern. </d-figure>
+                    <figcaption> If CLIP performs poorly on a visual pattern such as ``orientation'', MLLMs also underperform on the visual pattern. </figcaption></d-figure>
 
             </p>
         </section>
@@ -168,7 +439,7 @@
 
                 We add a pretrained DINOv2 encoder into MLLM and linearly mix the CLIP pretrained encoder with it. Our study reveals that 
                 <d-figure>
-                    <img src="images/A-MoF.png" alt="SEAL-Bench Results" width="100%" style="display: block; margin-left: auto; margin-right: auto;">
+                    <img src="images/A-MoF.png" alt="SEAL-Bench Results" width="50%" style="display: block; margin-left: auto; margin-right: auto;">
 
                 <ol>
                     <li>As the proportion of DINOv2 features increases, MLLM exhibits a decline in its instruction-following capability. Notably, there is a sharp decrease when the DINOv2 proportion reaches 87.5%.</li>
@@ -176,13 +447,12 @@
                 </ol>
             </p>
 
-            <h3 id="VQALLM">Scaling Up CLIP Doesn't Improve</h3>
+            <h3 id="VQALLM">Interleaved-MoF: Combining advantages from CLIP and DINOv2 features</h3>
             <p>
-
-                We plot CLIP’s performance and MLLMs' performance for each visual pattern. When the CLIP vision encoder underperforms on a certain visual pattern, the MLLM tends to exhibit similar shortcomings. Open-source models such as LLaVA 1.5 and InstructBLIP that explicitly use the CLIP vision encoder display a strong correlation in performance.
+                We propose interleaved MoF to leverage advantages from both CLIP and DINOv2 embeddings to enhance image representation. We take the processed features from CLIP and DINOv2 and interleave them while maintaining their original spatial order.  Interleave MoF significantly enhances visual grounding, with a 10.7% increase observed in MMVP, without compromising the model’s ability to follow instructions. This experiment is replicated with the LLaVA-1.5 setting and under various image resolution settings, yielding similar enhancements in performance.
                 <d-figure>
-                    <img src="images/correlation.png" alt="SEAL-Bench Results" width="100%" style="display: block; margin-left: auto; margin-right: auto;">
-                    <figcaption> If CLIP performs poorly on a visual pattern such as ``orientation'', MLLMs also underperform on the visual pattern. </d-figure>
+                    <img src="images/I-MoF.png" alt="SEAL-Bench Results" width="65%" style="display: block; margin-left: auto; margin-right: auto;">
+                    <figcaption> Interleaved MoF improves visual grounding while maintaining same level of instruction following ability. </figcaption></d-figure>
 
             </p>
         </section>
@@ -215,6 +485,7 @@
         
         </script> -->
         <script>
+          
             var dContents = document.querySelector('d-contents');
             var dArticle = document.querySelector('d-article');
             // Get the computed style of the element to access the margin
