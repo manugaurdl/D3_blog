@@ -269,7 +269,7 @@
             </div>
         </div>
 
-<script>
+    <script>
     let slideIndex = 0;
     showSlides(slideIndex);
 
@@ -292,9 +292,9 @@
         <d-contents>
             <nav>
                 <h4>Contents</h4>
-                <div><a href="#introduction">MMVP Benchmark</a></div>
-                <div><a href="#framework">Systematic Failures in CLIP</a></div>
-                <div><a href="#SEALBench">MoF-MLLM</a></div>
+                <div><a href="#introduction">Searching for Visual Mistakes in MLLMs</a></div>
+                <div><a href="#framework">Visual Patterns that challenges CLIP Models</a></div>
+                <div><a href="#SEALBench">Mixture-of-Features improves MLLMs</a></div>
             </nav>
         </d-contents>
         
@@ -376,11 +376,11 @@
                 (Click on Visual Patterns to see examples)
 
 
-                <!-- Image placeholder -->
-                <img id="displayedImage" src="" alt="Category Image">
+                <!-- Image placeholder with default image path set -->
+                <img id="displayedImage" src="images/Failure Categories/orientation.png" alt="Category Image">
 
                 <script>
-                    var lastCategory = null;
+                    var lastCategory = 'orientation'; // Set default category
 
                     function showImage(category) {
                         var imagePath = "images/Failure Categories/" + category + ".png";
@@ -391,11 +391,11 @@
                         } else {
                             displayedImage.src = imagePath;
                             displayedImage.style.display = 'block';
+                            lastCategory = category;
                         }
-
-                        lastCategory = category;
                     }
                 </script>
+
 
 
 
