@@ -169,7 +169,7 @@
                 <button class="carousel-button" onclick="moveSlide(1)">&#10095;</button>
             </div>
             <div class="carousel-caption">
-                <p>Examples of Silly Mistakes Made by GPT-4, Swipe to see more</p>
+                <p>EFailure Instances of GPT-4V, Swipe to see more</p>
             </div>
         </div>
 
@@ -229,7 +229,7 @@
                 </figure>
             </p>
         </section>
-        <section id="framework">
+        <section id="visualpatterns">
             <h2>Visual Patterns that challenge CLIP models</h2>
 
           
@@ -309,32 +309,13 @@
                 (Click on Visual Patterns to see examples)
 
 
-                <!-- <img id="displayedImage" src="images/Failure Categories/orientation.png" alt="Category Image">
-
-                <script>
-                    var lastCategory = 'orientation'; // Set default category
-
-                    function showImage(category) {
-                        var imagePath = "images/Failure Categories/" + category + ".png";
-                        var displayedImage = document.getElementById('displayedImage');
-
-                        if(lastCategory === category) {
-                            displayedImage.style.display = displayedImage.style.display === 'none' ? 'block' : 'none';
-                        } else {
-                            displayedImage.src = imagePath;
-                            displayedImage.style.display = 'block';
-                            lastCategory = category;
-                        }
-                    }
-                </script>
-                   -->
 
 
 
                
             
                             </p>
-            <h3 id="VQALLM">Scaling Up CLIP Doesn't Improve</h3>
+            <h3 id="Scale">Scaling Up CLIP Doesn't Improve</h3>
             <p>
                 CLIP models develop and scale over the years. We evaluate MMVP on a variety of CLIP models. These models vary in aspects like size, training data, and methodology. As evidenced in the table, increasing network size and training data only aids in identifying two visual patterns – “color and appearance”
                 and “state and condition”. The rest of the visual patterns continue to challenge all CLIP-based models
@@ -344,7 +325,7 @@
 
             </p>
 
-            <h3 id="VQALLM">CLIP mistakes and MLLMs mistakes are correlated!</h3>
+            <h3 id="Correlation">CLIP mistakes and MLLMs mistakes are correlated!</h3>
             <p>
 
                 We plot CLIP’s performance and MLLMs' performance for each visual pattern. When the CLIP vision encoder underperforms on a certain visual pattern, the MLLM tends to exhibit similar shortcomings. Open-source models such as LLaVA 1.5 and InstructBLIP that explicitly use the CLIP vision encoder display a strong correlation in performance.
@@ -355,7 +336,7 @@
             </p>
         </section>
         
-        <section id="SEALBench">
+        <section id="MoF">
             <h2>Mixture-Of-Features (MoF) MLLM</h2>  
             <p>
                 <em>If open-sourced MLLM's visual shortcomings come from the CLIP vision encoder, how do we build a more competent visual encoder?</em> We take initial steps to answer the question by studying Mixture-of-Features (MoF) that mixs Vision-Only SSL (DINOv2) features and CLIP features. 
@@ -366,7 +347,7 @@
                 </d-figure>
             </p>
 
-            <h3 id="VQALLM">Vision-Only SSL features: Better Vision, Worse Language</h3>
+            <h3 id="A-MoF">Vision-Only SSL features: Better Vision, Worse Language</h3>
             <p>
 
                 We add a pretrained DINOv2 encoder into MLLM and linearly mix the CLIP pretrained encoder with it. Our study reveals that 
@@ -379,7 +360,7 @@
                 </ol>
             </p>
 
-            <h3 id="VQALLM">Interleaved-MoF: Combining advantages from CLIP and DINOv2 features</h3>
+            <h3 id="I-MoF">Interleaved-MoF: Combining advantages from CLIP and DINOv2 features</h3>
             <p>
                 We propose interleaved MoF to leverage advantages from both CLIP and DINOv2 embeddings to enhance image representation. We take the processed features from CLIP and DINOv2 and interleave them while maintaining their original spatial order.  Interleave MoF significantly enhances visual grounding, with a 10.7% increase observed in MMVP, without compromising the model’s ability to follow instructions. This experiment is replicated with the LLaVA-1.5 setting and under various image resolution settings, yielding similar enhancements in performance.
                 <d-figure>
