@@ -23,7 +23,7 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Simple Image Carousel</title>
 
-
+            
             <style>
                 /* Styling for the table */
                 table, th, td {
@@ -35,7 +35,16 @@
                     text-align: left;
                     cursor: pointer;
                 }
-        
+                .container {
+                    display: flex;
+                    align-items: start;
+                }
+
+                .table-container {
+                    margin-right: 10px;
+                }
+
+
                 /* Styling for the carousel */
                 .carousel-container {
                     width: 100%;
@@ -48,7 +57,7 @@
                 .carousel-slide {
                     display: none;
                     width: 100%;
-                    height: 300px;
+                    height: 400px;
                     position: center;
                     display: flex;
                     justify-content: center;
@@ -59,11 +68,11 @@
                 }
                 .carousel-slide img {
                     max-width: 100%;
-                    max-height: 300px;
+                    max-height: 400px;
                     width: auto;
                     height: auto;
                     margin: 0%;
-                    transform: translateX(180px);
+                    transform: translateX(150px);
                 }
                 .carousel-controls {
                     position: absolute;
@@ -78,125 +87,17 @@
                     border: none;
                     cursor: pointer;
                     font-size: 24px;
+                }
+                .carousel-caption p {
+                    text-align: center;
+                    font-size: 16px;
+                    color: #333;
+                    margin-top: 10px; /* Adjust as needed */
                 }
         
                 /* Additional styles can go here */
             </style>
 
-            <!-- <style>
-                /* Add your CSS styling here */
-                table, th, td {
-                    border: 1px solid black;
-                    border-collapse: collapse;
-                }
-                th, td {
-                    padding: 10px;
-                    text-align: left;
-                }
-            </style>
-
-            <style>
-                .carousel-container {
-                    width: 100%;
-                    max-width: 600px;
-                    margin: auto;
-                    position: relative;
-                    overflow: hidden;
-                    align-items: center
-                }
-        
-                .carousel-slide {
-                    display: none;
-                    width: 100%;
-                    height: 300px; /* Set a fixed height for the slides */
-                    position: center;
-                    display: flex; /* Use flexbox for alignment */
-                    justify-content: center; /* Center horizontally */
-                    align-items: center; /* Align at the top */
-                }
-        
-                .carousel-slide.active {
-                    display: flex;
-                }
-        
-                .carousel-slide img {
-                    max-width: 100%; /* Maximum width of the image */
-                    max-height: 300px; /* Maximum height of the image */
-                    width: auto; /* Maintain aspect ratio */
-                    height: auto; /* Maintain aspect ratio */
-                    margin:0%; /* Auto margins for horizontal centering */
-                    transform: translateX(180px); /* Move image 50px to the right */
-                }
-        
-                .carousel-controls {
-                    position: absolute;
-                    top: 50%;
-                    width: 100%;
-                    display: flex;
-                    justify-content: space-between;
-                    transform: translateY(-50%);
-                }
-        
-                .carousel-button {
-                    background: none;
-                    border: none;
-                    cursor: pointer;
-                    font-size: 24px;
-                }
-            </style>
-
-            <title>Interactive Image Display Table</title>
-            <style>
-                /* Basic styling for the table */
-                table, th, td {
-                    border: 1px solid black;
-                    border-collapse: collapse;
-                }
-                th, td {
-                    padding: 10px;
-                    text-align: left;
-                    cursor: pointer; /* Optional: Changes the cursor on hover */
-                }
-                img {
-                    max-width: 100%;
-                    height: auto;
-                    display: none; /* Image is hidden by default */
-                    margin-top: 10px;
-                }
-            </style>  -->
-
-      
-        <!-- <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Swiper Carousel</title>
-        <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
-        <style>
-        
-    
-            .swiper-container {
-            width: 100%; /* Full width of the parent container */
-            max-width: 600px; /* Maximum width */
-            height: auto; /* Height is set to auto to maintain aspect ratio */
-            margin: auto;
-            }
-
-            .swiper-slide img {
-                width: 100%; /* Make images responsive */
-                height: auto; /* Maintain aspect ratio */
-            }
-
-            .swiper-caption {
-                position: absolute;
-                bottom: 10px;
-                left: 0;
-                width: 100%;
-                text-align: center;
-                font-size: 1.2em;
-                color: white;
-                background-color: rgba(0, 0, 0, 0.5);
-                padding: 5px;
-            }
-        </style> -->
     </head>
     <body>
         <div class="header-container">
@@ -234,7 +135,7 @@
                 </div>
                 <div class="byline-column">
                     <h3>Date</h3>
-                    <p>Dec. 27, 2023</p>
+                    <p>Jan. 08, 2024</p>
                 </div>
             </div>
         </div>
@@ -267,6 +168,9 @@
                 <button class="carousel-button" onclick="moveSlide(-1)">&#10094;</button>
                 <button class="carousel-button" onclick="moveSlide(1)">&#10095;</button>
             </div>
+            <div class="carousel-caption">
+                <p>Examples of Silly Mistakes Made by GPT-4, Swipe to see more</p>
+            </div>
         </div>
 
     <script>
@@ -292,9 +196,9 @@
         <d-contents>
             <nav>
                 <h4>Contents</h4>
-                <div><a href="#introduction">Searching for Visual Mistakes in MLLMs</a></div>
-                <div><a href="#framework">Visual Patterns that challenges CLIP Models</a></div>
-                <div><a href="#SEALBench">Mixture-of-Features improves MLLMs</a></div>
+                <div><a href="#mmvp">Searching for Visual Mistakes in MLLMs</a></div>
+                <div><a href="#patterns">Visual Patterns that challenges CLIP Models</a></div>
+                <div><a href="#mof">Mixture-of-Features improves MLLMs</a></div>
             </nav>
         </d-contents>
         
@@ -302,7 +206,7 @@
             the instance-level contrastive language-image pre-training (CLIP). Our research reveals that the visual capabilities in recent MultiModal LLMs (MLLMs) still exhibit systematic shortcomings. 
         </p>
         <section id="introduction">
-            <h2>Multimodal Visual Patterns (MMVP) Benchmark</h2>
+            <h2>Searching for Visual Mistakes in CLIP and MLLM models</h2>
             <p>
                To understand the visual incapilities of multimodal LLMs, we delve into the visual encoder (CLIP models). We find ambiguities in CLIP embedding via "clip-blind pairs": Images that are visually different yet encoded similarly by CLIP models.  
                <d-figure>
@@ -326,58 +230,86 @@
             </p>
         </section>
         <section id="framework">
-            <h2>Systematic Failures in CLIP</h2>
+            <h2>Visual Patterns that challenge CLIP models</h2>
 
           
             
            
             <p>
                 Having identified the CLIP-blind pairs, we summarize systematic visual patterns that the CLIP vision encoders might consistently misinterpret. We turn to the questions and options from the MMVP benchmark. With these questions, we transform abstract visual patterns in images into clearer, language-based descriptors that are easier to categorize. We identify 9 visual patterns:  
+                
+
+                <div class="container">
+                    <!-- Table Container -->
+                    <div class="table-container">
+                        <table>
+                            <tr onclick="showImage('orientation')">
+                                <th><i class="fa fa-compass"></i></th>
+                                <td>Orientation and Direction</td>
+                            </tr>
+                            <tr onclick="showImage('presence')">
+                                <th><i class="fa fa-search"></i></th>
+                                <td>Presence of Specific Features</td>
+                            </tr>
+                            <tr onclick="showImage('state')">
+                                <th><i class="fa fa-sync"></i></th>
+                                <td>State and Condition</td>
+                            </tr>
+                            <tr onclick="showImage('quantity')">
+                                <th><i class="fa fa-sort-numeric-up"></i></th>
+                                <td>Quantity and Count</td>
+                            </tr>
+                            <tr onclick="showImage('color')">
+                                <th><i class="fa fa-palette"></i></th>
+                                <td>Color and Appearance</td>
+                            </tr>
+                            <tr onclick="showImage('positional')">
+                                <th><i class="fa fa-map-pin"></i></th>
+                                <td>Positional and Relational Context</td>
+                            </tr>
+                            <tr onclick="showImage('structural')">
+                                <th><i class="fa fa-cogs"></i></th>
+                                <td>Structural and Physical Characteristics</td>
+                            </tr>
+                            <tr onclick="showImage('texts')">
+                                <th><i class="fa fa-font"></i></th>
+                                <td>Text</td>
+                            </tr>
+                            <tr onclick="showImage('viewpoint')">
+                                <th><i class="fa fa-camera"></i></th>
+                                <td>Viewpoint and Perspective</td>
+                            </tr>
+                            <!-- Repeat for other categories -->
+                        </table>
+                    </div>
             
-                <table>
-                    <tr onclick="showImage('orientation')">
-                        <th><i class="fa fa-compass"></i></th>
-                        <td>Orientation and Direction</td>
-                    </tr>
-                    <tr onclick="showImage('presence')">
-                        <th><i class="fa fa-search"></i></th>
-                        <td>Presence of Specific Features</td>
-                    </tr>
-                    <tr onclick="showImage('state')">
-                        <th><i class="fa fa-sync"></i></th>
-                        <td>State and Condition</td>
-                    </tr>
-                    <tr onclick="showImage('quantity')">
-                        <th><i class="fa fa-sort-numeric-up"></i></th>
-                        <td>Quantity and Count</td>
-                    </tr>
-                    <tr onclick="showImage('color')">
-                        <th><i class="fa fa-palette"></i></th>
-                        <td>Color and Appearance</td>
-                    </tr>
-                    <tr onclick="showImage('positional')">
-                        <th><i class="fa fa-map-pin"></i></th>
-                        <td>Positional and Relational Context</td>
-                    </tr>
-                    <tr onclick="showImage('structural')">
-                        <th><i class="fa fa-cogs"></i></th>
-                        <td>Structural and Physical Characteristics</td>
-                    </tr>
-                    <tr onclick="showImage('texts')">
-                        <th><i class="fa fa-font"></i></th>
-                        <td>Text</td>
-                    </tr>
-                    <tr onclick="showImage('viewpoint')">
-                        <th><i class="fa fa-camera"></i></th>
-                        <td>Viewpoint and Perspective</td>
-                    </tr>
-                    <!-- Repeat for other categories -->
-                </table>
+                    <!-- Image Placeholder -->
+                    <div>
+                        <img id="displayedImage" src="images/Failure Categories/orientation.png"  width="100%" alt="Category Image">
+                    </div>
+                </div>
+            
+                <script>
+                    var lastCategory = 'orientation';
+            
+                    function showImage(category) {
+                        var imagePath = "images/Failure Categories/" + category + ".png";
+                        var displayedImage = document.getElementById('displayedImage');
+            
+                        if(lastCategory === category) {
+                            displayedImage.style.display = displayedImage.style.display === 'none' ? 'block' : 'none';
+                        } else {
+                            displayedImage.src = imagePath;
+                            displayedImage.style.display = 'block';
+                            lastCategory = category;
+                        }
+                    }
+                </script>
+
                 (Click on Visual Patterns to see examples)
 
 
-                <!-- Image placeholder with default image path set -->
-                <img id="displayedImage" src="images/Failure Categories/orientation.png" alt="Category Image">
+                <!-- <img id="displayedImage" src="images/Failure Categories/orientation.png" alt="Category Image">
 
                 <script>
                     var lastCategory = 'orientation'; // Set default category
@@ -395,7 +327,7 @@
                         }
                     }
                 </script>
-
+                   -->
 
 
 
@@ -462,11 +394,11 @@
         <d-appendix>
             <h3>BibTeX</h3>
             <p class="bibtex">
-                @article{SEAL,<br>
-                &nbsp;&nbsp;title={V*: Guided Visual Search as a Core Mechanism in Multimodal LLMs},<br>
-                &nbsp;&nbsp;author={Penghao Wu and Saining Xie},<br>
-                &nbsp;&nbsp;year={2023},<br>
-                &nbsp;&nbsp;journal={arXiv preprint arXiv:2312},<br>
+                @article{MMVP,<br>
+                &nbsp;&nbsp;title={},<br>
+                &nbsp;&nbsp;author={}<br>
+                &nbsp;&nbsp;year={2024},<br>
+                &nbsp;&nbsp;journal={},<br>
                 }
             </p>
 
