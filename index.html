@@ -18,7 +18,7 @@
             onload="renderMathInElement(document.body);"></script>
         
 
-
+            
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Simple Image Carousel</title>
@@ -173,9 +173,62 @@
             </div>
         </div>
 
+        
+        
+
     <script>
     let slideIndex = 0;
     showSlides(slideIndex);
+
+
+    var bibliography = {
+        "1": "Alec Radford, Jong Wook Kim, Chris Hallacy, Aditya Ramesh, Gabriel Goh, Sandhini Agarwal, Girish Sastry, Amanda Askell, Pamela Mishkin, Jack Clark, et al. Learning transferable visual models from natural language supervision. In ICML, 2021",
+        "2": "Haotian Liu, Chunyuan Li, Yuheng Li, and Yong Jae Lee. Improved baselines with visual instruction tuning. arXiv preprint arXiv:2310.03744, 2023",
+        "3": "Wenliang Dai, Junnan Li, Dongxu Li, Anthony Meng HuatTiong, Junqi Zhao, Weisheng Wang, Boyang Li, Pascale Fung, and Steven Hoi. Instructblip: Towards generalpurpose vision-language models with instruction tuning, 2023",
+        "4": "Deyao Zhu, Jun Chen, Xiaoqian Shen, Xiang Li, and Mohamed Elhoseiny. MiniGPT-4: Enhancing vision-language understanding with advanced large language models. arXiv preprint arXiv:2304.10592, 2023",
+        "5": "OpenAI. GPT-4V(ision) System Card, 2023",
+        "6": "Google. Gemini, 2023",
+        "7": "Google. Bard, 2023",
+        "8": "Alex Fang, Albin Madappally Jose, Amit Jain, Ludwig Schmidt, Alexander Toshev, and Vaishaal Shankar. Data filtering networks. arXiv preprint arXiv:2309.17425, 2023",
+        "9": "Hu Xu, Saining Xie, Xiaoqing Ellen Tan, Po-Yao Huang, Russell Howes, Vasu Sharma, Shang-Wen Li, Gargi Ghosh, Luke Zettlemoyer, and Christoph Feichtenhofer. Demystifying CLIP data. arXiv preprint arXiv:2309.16671, 2023",
+        "10": "Quan Sun, Yuxin Fang, Ledell Wu, Xinlong Wang, and Yue Cao. EVA-CLIP: Improved training techniques for clip at scale. arXiv preprint arXiv:2303.15389, 2023",
+        "11": "Maxime Oquab, Timothee Darcet, Theo Moutakanni, Huy Vo, Marc Szafraniec, Vasil Khalidov, Pierre Fernandez, Daniel Haziza, Francisco Massa, Alaaeldin El-Nouby, et al. DINOv2: Learning robust visual features without supervision. arXiv preprint arXiv:2304.07193, 2023.",
+    };
+
+    // Function to insert citation
+    function insertCitation(refId) {
+        document.getElementById("ref" + refId).innerText = "[" + refId + "]";
+    }
+
+    // Function to update bibliography section
+    function updateBibliography() {
+        var bibliographySection = document.getElementById('bibliography');
+        for (var key in bibliography) {
+            if (bibliography.hasOwnProperty(key)) {
+                var para = document.createElement("p");
+                para.innerHTML = "[" + key + "] " + bibliography[key];
+                bibliographySection.appendChild(para);
+            }
+        }
+    }
+
+    // Insert citations and update bibliography on page load
+    document.addEventListener('DOMContentLoaded', (event) => {
+        for (var i = 1; i <= 12; i++) {
+            insertCitation(i.toString());
+        }
+        updateBibliography();
+    });
+    
+
+
+    function cite(key) {
+            var citationText = bibliography[key];
+            if (citationText) {
+                return "[" + key + "]";
+            }
+            return "[Citation not found]";
+        }
 
     function moveSlide(n) {
         showSlides(slideIndex += n);
@@ -191,6 +244,11 @@
         }
         slides[slideIndex].style.display = "block";
     }
+    // This ensures the script runs after the HTML document is fully parsed
+    document.addEventListener('DOMContentLoaded', (event) => {
+            updateBibliography();
+        });
+
 </script>
         
         <d-contents>
@@ -203,7 +261,7 @@
         </d-contents>
         
         <p>Is vision good enough for language? Recent advancements in multimodal models primarily stem from the powerful reasoning abilities of large language models (LLMs). However, the visual component typically depends only on
-            the instance-level contrastive language-image pre-training (CLIP). Our research reveals that the visual capabilities in recent MultiModal LLMs (MLLMs) still exhibit systematic shortcomings. 
+            the instance-level contrastive language-image pre-training (CLIP) <span id="ref1"></span>. Our research reveals that the visual capabilities in recent MultiModal LLMs (MLLMs) still exhibit systematic shortcomings. 
         </p>
         <section id="introduction">
             <h2>Searching for Visual Mistakes in CLIP and MLLM models</h2>
@@ -219,8 +277,8 @@
             </d-figure>
             </p>
             <p>
-                We assess the questions on SOTA open-source models (LLaVA-1.5, InstructBLIP, Mini-GPT4) and closed-source models (GPT-4V, Gemini,
-                Bard). We also evaluate huamn performance through user studies. There is a significant performance gap between human and MLLM models, despite the latter often demonstrating impressive results. Models except GPT-4V and Gemini, scored below random guess level
+                We assess the questions on SOTA open-source models (LLaVA-1.5 <span id="ref2"></span>, InstructBLIP <span id="ref3"></span>, Mini-GPT4 <span id="ref4"></span>) and closed-source models (GPT-4V <span id="ref5"></span>, Gemini <span id="ref6"></span>,
+                Bard <span id="ref7"></span>). We also evaluate huamn performance through user studies. There is a significant performance gap between human and MLLM models, despite the latter often demonstrating impressive results. Models except GPT-4V and Gemini, scored below random guess level
                 (25%). Most advanced GPT-4V and Gemini also face challenges in addressing basic visual grounding questions. 
                 <figure>
                     <img src="images/result.png" alt="MMVP Framework">
@@ -317,7 +375,7 @@
                             </p>
             <h3 id="Scale">Scaling Up CLIP Doesn't Help Visual Patterns</h3>
             <p>
-                CLIP models develop and scale over the years. We evaluate MMVP on a variety of CLIP models. These models vary in aspects like size, training data, and methodology. As evidenced in the table, increasing network size and training data only aids in identifying two visual patterns – “color and appearance”
+                CLIP models develop and scale over the years. We evaluate MMVP on a variety of CLIP models <span id="ref8"></span><span id="ref9"></span><span id="ref10"></span>. These models vary in aspects like size, training data, and methodology. As evidenced in the table, increasing network size and training data only aids in identifying two visual patterns – “color and appearance”
                 and “state and condition”. The rest of the visual patterns continue to challenge all CLIP-based models
                 <d-figure>
                     <img src="images/clip.png" alt="SEAL-Bench Results" width="100%" style="display: block; margin-left: auto; margin-right: auto;">
@@ -339,7 +397,7 @@
         <section id="MoF">
             <h2>Mixture-Of-Features (MoF) MLLM</h2>  
             <p>
-                <em>If open-sourced MLLM's visual shortcomings come from the CLIP vision encoder, how do we build a more competent visual encoder?</em> We take initial steps to answer the question by studying Mixture-of-Features (MoF) that mixs Vision-Only SSL (DINOv2) features and CLIP features. 
+                <em>If open-sourced MLLM's visual shortcomings come from the CLIP vision encoder, how do we build a more competent visual encoder?</em> We take initial steps to answer the question by studying Mixture-of-Features (MoF) that mixs Vision-Only SSL (DINOv2 <span id="ref11"></span>) features and CLIP features. 
                           <d-figure>
                         <img src="images/mof_pipeline.png" alt="SEAL-Bench Results" width="100%" style="display: block; margin-left: auto; margin-right: auto;">
                         <figcaption>Different Mixture-of-Feature (MoF) Strategies in MLLM. Left: Standard MLLM that uses CLIP as off-the-shelf pretrained vision encoder; Middle: Additive-MoF (A-MoF) MLLM: Linearly mixing CLIP and DINOv2 features before the adapter; Right: InterleavedMoF (I-MoF MLLM) Spatially interleaving CLIP visual tokens and DINOv2 visual tokens after the adapter.
@@ -385,15 +443,17 @@
 
             <d-footnote-list></d-footnote-list>
             <d-citation-list></d-citation-list>
-          </d-appendix>
           
-            <d-footnote-list></d-footnote-list>
-            <d-citation-list></d-citation-list>
+        
+        <div id="bibliography">
+            <h3>Bibliography</h3>
+            <ul>
+                   
+                </ul>
+            </div>
         </d-appendix>
 
-          <!-- bibliography will be inlined during Distill pipeline's pre-rendering -->
-        <d-bibliography src="bibliography.bib"></d-bibliography>
-
+     
         <!-- <script type="text/bibliography">
         
         </script> -->
@@ -490,6 +550,9 @@
         
             // Initial update
             updateNavigation();
+
+                    // Insert citations and update bibliography on page load
+            
         </script>
         
         
