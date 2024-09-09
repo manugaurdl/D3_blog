@@ -1,10 +1,4 @@
 /* Base styles */
-.header-container {
-  background-color: #ff5d2c; /* Dark teal background */
-  color: #fcf6e9;
-  text-align: center; /* Center content on small screens */
-  padding: 20px; /* Reduced padding for small screens */
-}
 
 
 .header-content h1 {
@@ -89,15 +83,30 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   padding: 0 5px 10px; /* Add padding to the top and bottom */
   margin-bottom: 20px;
-}
+  }
 
 .byline-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start; /* Align columns by the top */
-  max-width: 1000px; /* Adjust as needed for your design */
-  margin: 0 auto; /* Center the container */
+    padding-top: 2rem;
+    padding-bottom: 0.5rem;
+    text-align: center;  /* Center align the text */
 }
+
+.authors {
+    display: flex;
+    gap: 20px;
+}
+
+.author-link, .affiliation-link {
+    font-size: larger;
+    color: black; /* Set the color to match the other text */
+    text-decoration: none; /* Removes the underline */
+    border-bottom: none;
+    cursor: pointer; /* Changes cursor to pointer to indicate link */
+    white-space: nowrap;  /* Prevent breaking names across lines */
+    /* Increase vertical spacing */
+    line-height: 2.3rem; /* Increase line height for better readability */
+
+  }
 
 .byline-column {
   /* Columns will take up width based on their content */
@@ -118,17 +127,20 @@
   margin: 5px 0; /* Space between paragraphs */
 }
 
-.author-link, .affiliation-link {
-  color: #666; /* Set the color to match the other text */
-  text-decoration: none; /* Removes the underline */
-  border-bottom: none;
-  cursor: pointer; /* Changes cursor to pointer to indicate link */
+
+#affiliation {
+  font-size: 1.6em;
+  /* bold */
+  font-weight: bolder;
+  font-family: Charter;
 }
 
 .author-link:hover, .affiliation-link:hover {
-  text-decoration: underline; /* Adds underline on hover for visual feedback */
-  border-bottom: none;
+text-decoration: underline; /* Adds underline on hover for visual feedback */
+border-bottom: none;
+color: #007bff;
 }
+
 
 
 d-article {

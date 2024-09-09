@@ -21,11 +21,56 @@
             
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>MMVP</title>
+            <title>Detect-Describe-Discriminate</title>
 
             
             <style>
+                ol {
+                    margin-top: 0;
+                    margin-bottom: 0;
+                    list-style-position: inside; /* Adjust if necessary */
+
+                }
+
+                li {
+                    line-height: 0.8;
+                    padding-left: 100px; /* Adjust the padding value as needed */
+                }
                 /* Styling for the table */
+
+                .pod-button-container {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 10px; /* Vertical margin, adjust as needed */
+                }
+                .category-button {
+                    padding: 10px 20px;
+                    background-color: transparent; /* Default state */
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    font-size: 16px;
+                    color: #000;
+                    margin-right: 10px;
+                    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+                }
+
+                .category-button:active, .category-button:focus {
+                    background-color: rgb(149, 44, 15); /* Change background to blue when clicked or focused */
+                    color: white; /* Change text to white */
+                }
+                .image-container {
+                    border: 0px solid #ccc;
+                    padding: 0px;
+                    text-align: center;
+                    margin-left:-20px;
+                    margin-top:20px;
+                    margin-bottom:20px;
+                }
+                #displayedImage {
+                    max-width: auto;
+                    height: 300px;
+                }
                 table, th, td {
                     border: 1px solid black;
                     border-collapse: collapse;
@@ -38,42 +83,58 @@
                 .container {
                     display: flex;
                     align-items: start;
+                    /* margin: 0 auto; */
                 }
 
                 .table-container {
                     margin-right: 10px;
                 }
 
-
                 /* Styling for the carousel */
                 .carousel-container {
-                    width: 100%;
-                    max-width: 600px;
-                    margin: auto;
+                    width: auto; 
+                    margin-bottom: 2em;
                     position: relative;
                     overflow: hidden;
+                    display: flex;
+                    flex-direction: column; /* Stack elements vertically */
                     align-items: center;
                 }
+
                 .carousel-slide {
                     display: none;
-                    width: 100%;
-                    height: 400px;
-                    position: center;
+                    width: auto;
+                    height: auto;
+                    position: relative;
                     display: flex;
                     justify-content: center;
                     align-items: center;
+                    flex-direction: column; /* Stack image and caption vertically */
                 }
+
                 .carousel-slide.active {
                     display: flex;
                 }
+
                 .carousel-slide img {
-                    max-width: 100%;
-                    max-height: 400px;
-                    width: auto;
-                    height: auto;
-                    margin: 0%;
-                    transform: translateX(150px);
+                    width: 600px; /* Adjustable width */
+                    height: auto; 
+                    object-fit: contain;
+                    margin: 0;
                 }
+
+                /* Caption Styling */
+                .carousel-caption {
+                    text-align: center;
+                    margin-top: 10px;
+                }
+
+                .carousel-caption p {
+                    font-size: 16px;
+                    color: #333;
+                    margin: 0;
+                }
+
                 .carousel-controls {
                     position: absolute;
                     top: 50%;
@@ -82,19 +143,21 @@
                     justify-content: space-between;
                     transform: translateY(-50%);
                 }
+
                 .carousel-button {
                     background: none;
                     border: none;
                     cursor: pointer;
                     font-size: 24px;
                 }
-                .carousel-caption p {
-                    text-align: center;
-                    font-size: 16px;
-                    color: #333;
-                    margin-top: 10px; /* Adjust as needed */
+                
+                .header-container {
+                    background-color: transparent; /* Dark teal background */
+                    color: black;
+                    text-align: center; /* Center content on small screens */
+                    padding: 20px; /* Reduced padding for small screens */
                 }
-        
+
                 /* Additional styles can go here */
             </style>
 
@@ -102,74 +165,57 @@
     <body>
         <div class="header-container">
             <div class="header-content">
-              <h1>Eyes Wide Shut? Exploring the Visual Shortcomings of Multimodal LLMs</h1>
+              <h1>Detect, Describe, Discriminate: Moving Beyond VQA for MLLM Evaluation </h1>
               <div class="button-container">
                 <a href="https://arxiv.org/abs/2401.06209" class="button">Paper</a>
                 <a href="https://github.com/tsb0601/MMVP" class="button">Code</a>
               </div>
             </div>
             <div class="header-image">
-                <img src="images/teaser_head.png" alt="Teaser Image" class="teaser-image">
+                <img src="images/robot_flux.jpg" alt="Teaser Image" class="teaser-image">
             </div>
         </div>
     <d-article>
+
+
+
         <div class="byline">
             <div class="byline-container">
-                <div class="byline-column">
-                    <h3>Authors</h3>
-                    <p><a href="https://tsb0601.github.io/petertongsb/" class="author-link">Shengbang Tong</a></p>
-                    <p><a href="https://liuzhuang13.github.io/" class="author-link">Zhuang Liu</a></p>
-                    <p><a href="https://yx-s-z.github.io/" class="author-link">Yuexiang Zhai</a></p>
-                    <p><a href="https://people.eecs.berkeley.edu/~yima/" class="author-link">Yi Ma</a></p>
-                    <p><a href="https://yann.lecun.com/" class="author-link">Yann LeCun</a></p>
-                    <p><a href="https://www.sainingxie.com/" class="author-link">Saining Xie</a></p>
-                </div>
-                <div class="byline-column">
-                    <h3>Affiliations</h3>
-                    <p>New York University</a></p>
-                    <p>Meta AI</a></p>
-                    <p>UC Berkeley</a></p>
-                    <p>UC Berkeley</a></p>
-                    <p>New York University</a></p>
-                    <p>New York University</a></p>
-                </div>
-                <div class="byline-column">
-                    <h3>Date</h3>
-                    <p>Jan. 08, 2024</p>
-                </div>
+                <p>
+                    <a href="https://manugaurdl.github.io/" class="author-link" target="_blank" style="font-size: 1.3em; font-family: Charter;">Manu Gaur</a> &emsp;
+                    <a href="https://darshansingh11.github.io/" class="author-link" target="_blank" style="font-size: 1.3em; font-family: Charter;">Darshan Singh S</a> &emsp;
+                    <a href="https://makarandtapaswi.github.io/" class="author-link" target="_blank" style="font-size: 1.3em; font-family: Charter;">Makarand Tapaswi</a> &emsp;
+                    <p></p>
+                    <a href="https://www.iiit.ac.in/" class="affiliation-link" id="affiliation" target="_blank" style="font-size: 1.4em; font-family: Charter;">CVIT, IIIT Hyderabad</a>
+
+
+                </p>
             </div>
         </div>
         
-
-        
         <div class="carousel-container">
             <div class="carousel-slide active">
-                <img src="images/failure1.png" alt="Teaser Image 1">
+                <img src="images/vqa_5.jpg" alt="Teaser Image 1">
             </div>
             <div class="carousel-slide active">
-                <img src="images/failure2.png" alt="Teaser Image 2">
+                <img src="images/vqa_6.jpg" alt="Teaser Image 1">
             </div>
             <div class="carousel-slide active">
-                <img src="images/failure3.png" alt="Teaser Image 3">
+                <img src="images/vqa_2.jpg" alt="Teaser Image 2">
             </div>
             <div class="carousel-slide active">
-                <img src="images/failure4.png" alt="Teaser Image 4">
+                <img src="images/vqa_3.jpg" alt="Teaser Image 3">
             </div>
             <div class="carousel-slide active">
-                <img src="images/failure5.png" alt="Teaser Image 5">
+                <img src="images/vqa_4.jpg" alt="Teaser Image 4">
             </div>
-            <div class="carousel-slide active">
-                <img src="images/failure6.png" alt="Teaser Image 6">
-            </div>
-
-            <!-- ... more slides ... -->
 
             <div class="carousel-controls">
                 <button class="carousel-button" onclick="moveSlide(-1)">&#10094;</button>
                 <button class="carousel-button" onclick="moveSlide(1)">&#10095;</button>
             </div>
             <div class="carousel-caption">
-                <p>Failure Instances of GPT-4V, Swipe to see more</p>
+                <p><i>Current MLLMs fail during D3 evaluation despite achieving perfect score in VQA, Swipe for more</i></p>
             </div>
         </div>
 
@@ -182,17 +228,16 @@
 
 
     var bibliography = {
-        "1": "Alec Radford, Jong Wook Kim, Chris Hallacy, Aditya Ramesh, Gabriel Goh, Sandhini Agarwal, Girish Sastry, Amanda Askell, Pamela Mishkin, Jack Clark, et al. Learning transferable visual models from natural language supervision. In ICML, 2021",
-        "2": "Haotian Liu, Chunyuan Li, Yuheng Li, and Yong Jae Lee. Improved baselines with visual instruction tuning. arXiv preprint arXiv:2310.03744, 2023",
-        "3": "Wenliang Dai, Junnan Li, Dongxu Li, Anthony Meng HuatTiong, Junqi Zhao, Weisheng Wang, Boyang Li, Pascale Fung, and Steven Hoi. Instructblip: Towards generalpurpose vision-language models with instruction tuning, 2023",
-        "4": "Deyao Zhu, Jun Chen, Xiaoqian Shen, Xiang Li, and Mohamed Elhoseiny. MiniGPT-4: Enhancing vision-language understanding with advanced large language models. arXiv preprint arXiv:2304.10592, 2023",
-        "5": "OpenAI. GPT-4V(ision) System Card, 2023",
+        "1": "Manu Gaur, Darshan Singh S, Makarand Tapaswi. No Detail Left Behind: Revisiting Self-Retrieval for Fine-Grained Image Captioning. arXiv preprint arXiv:2409.03025, 2024",
+        "2": "Xihui Liu, Hongsheng  Li, Jing  Shao, Dapeng Chen and Xiaogang Wang. Show, Tell and Discriminate: Image captioning by self-retrieval with partially labeled data. ECCV, 2024",
+        "3": "Shengbang Tong, Ellis Brown, Penghao Wu, Sanghyun Woo, Manoj Middepogu, Sai Charitha Akula, Jihan Yang, Shusheng Yang, Adithya Iyer, Xichen Pan, et al. Cambrian-1: A Fully Open, Vision-Centric Exploration of Multimodal LLMs. arXiv preprint arXiv:2406.16860, 2024",
+        "4": "Chameleon Team. Chameleon: Mixed-modal Early-Fusion Foundation Models. arXiv preprint arXiv:2405.09818, 2024.",
+        "5": "Feng Li, Renrui Zhang, Hao Zhang, Yuanhan Zhang, Bo Li, Wei Li, Zejun Ma, and Chunyuan Li. Llava-Next-Interleave: Tackling Multi-Image, Video, and 3D in Large Multimodal Models. arXiv preprint arXiv:2407.07895, 2024",
         "6": "Google. Gemini, 2023",
-        "7": "Google. Bard, 2023",
-        "8": "Alex Fang, Albin Madappally Jose, Amit Jain, Ludwig Schmidt, Alexander Toshev, and Vaishaal Shankar. Data filtering networks. arXiv preprint arXiv:2309.17425, 2023",
-        "9": "Hu Xu, Saining Xie, Xiaoqing Ellen Tan, Po-Yao Huang, Russell Howes, Vasu Sharma, Shang-Wen Li, Gargi Ghosh, Luke Zettlemoyer, and Christoph Feichtenhofer. Demystifying CLIP data. arXiv preprint arXiv:2309.16671, 2023",
-        "10": "Quan Sun, Yuxin Fang, Ledell Wu, Xinlong Wang, and Yue Cao. EVA-CLIP: Improved training techniques for clip at scale. arXiv preprint arXiv:2303.15389, 2023",
-        "11": "Maxime Oquab, Timothee Darcet, Theo Moutakanni, Huy Vo, Marc Szafraniec, Vasil Khalidov, Pierre Fernandez, Daniel Haziza, Francisco Massa, Alaaeldin El-Nouby, et al. DINOv2: Learning robust visual features without supervision. arXiv preprint arXiv:2304.07193, 2023.",
+        "7": "OpenAI. GPT-4o, 2024",
+        "8": "Anthropic. Claude-Sonnet, 2024",
+        "9": "Shengbang Tong, Zhuang Liu, Yuexiang Zhai, Yi Ma, YannLeCun, and Saining Xie. Eyes Wide Shut? Exploring the Visual Shortcomings of Multimodal LLMs. In Conference on Computer Vision and Pattern Recognition (CVPR), 2024",
+        "10": "Penghao Wu and Saining Xie. V*: Guided Visual Search as a Core Mechanism in Multimodal LLMs. In Conference on Computer Vision and Pattern Recognition (CVPR), 2024.",
     };
 
     // Function to insert citation
@@ -254,107 +299,80 @@
         <d-contents>
             <nav>
                 <h4>Contents</h4>
-                <div><a href="#mmvp">Searching for Visual Mistakes in MLLMs</a></div>
-                <div><a href="#patterns">Visual Patterns that challenges CLIP Models</a></div>
-                <div><a href="#mof">Mixture-of-Features improves MLLMs</a></div>
+                <div><a href="#mmvp">Moving Beyond VQA</a></div>
+                <div><a href="#patterns">MLLMs struggle with fine-grained Visual Discrimination</a></div>
+                <div><a href="#patterns">Points of Difference in D<sub>3</sub> image pairs</a></div>
+                <div><a href="#mof">Whitebox Evaluation of MLLMs</a></div>
             </nav>
         </d-contents>
         
-        <p>Is vision good enough for language? Recent advancements in multimodal models primarily stem from the powerful reasoning abilities of large language models (LLMs). However, the visual component typically depends only on
-            the instance-level contrastive language-image pre-training (CLIP) <span id="ref1"></span>. Our research reveals that the visual capabilities in recent MultiModal LLMs (MLLMs) still exhibit systematic shortcomings. 
+        <p>
+            Given an image pair, it is easier for an MLLM to discern fine-grained differences when prompted with a question and/or multiple choices (VQA evaluation) than to independently detect and describe such differences (our evaluation). Our work finds that state-of-the-art MLLMs struggle to discern fine-grained difference with our Detect-Describe-Discriminate (D<sub>3</sub>) evaluation framework, with open-source MLLMs failing to outperform random guess. 
+
         </p>
         <section id="introduction">
-            <h2>Searching for Visual Mistakes in CLIP and MLLM models</h2>
+            <h2>Moving Beyond VQA</h2>
+        </section>
+        <p>
+            VQA with multiple choices provides a reliable method for checking the existence of specific visual abilities. However, we find that it is <i>easier for the model to select an answer from multiple choices than to generate the answer itself </i>. Specifically, providing the answer along with task prompt (through multiple choice options or as part of the question) biases the MLLM's output towards the visual concept that is being evaluated.
+        </p>
+        <h3 id="Scale">Self-Retrieval Evaluation</h3>
+        <p>
+            In this work, we offer a novel perspective for fine-grained evaluation: we assess how well an MLLM understands a specific visual concept by its ability to uniquely describe two extremely similar images that differ only in the targeted visual concept.
+            Unlike VQA, we do not constrain the output to multiple choice answers and directly evaluate the model's free-form generation.
+            Specifically, we assess the MLLMs ability to capture subtle visual distinctions using self-retrieval evaluation , i.e., <i>by retrieving the target image using its generated caption against the other image in the pair serving as the distractor</i> <span id="ref1"></span> <span id="ref2"></span>.
+        </p>
+        <section id="D3">
+            <h2>MLLMs struggle with fine-grained Visual Discrimination</h2>
             <p>
-               To understand the visual incapilities of multimodal LLMs, we delve into the visual encoder (CLIP models). We find ambiguities in CLIP embedding via "clip-blind pairs": Images that are visually different yet encoded similarly by CLIP models.  
-               <d-figure>
-                <figure>
-                    <img src="images/pipeline.png" alt="MMVP Framework">
-                    <figcaption>We start with finding CLIP-blind pairs that have similar CLIP embedding but different DINOv2 embedding. We manually inspect the differences between pair-wise images and formulate
-                        questions based on the differences in the images. We then ask MLLMs the question alongside the CLIP-blind pair. The model receives a score only when both questions for the CLIP-blind pair are answered correctly.
-                    </figcaption></figcaption>
-                </figure>
-            </d-figure>
+                We curate extremely similar image pairs, each having one prominent point of visual difference such that uniquely describing each image within the pair entails capturing a specific facet of visual understanding. With 247 such image pairs, we introduce the <strong>D<sub>3</sub></strong> benchmark. For each image in the pair, we prompt the model to:
+                <ol>
+                    <li><strong>Detect </strong> the visual difference,</li>
+                    <li><strong>Describe</strong> the target image uniquely such that it,</li>
+                    <li><strong>Discriminates </strong> the target image from the distractor.</li>
+                </ol>
+
             </p>
             <p>
-                We assess the questions on SOTA open-source models (LLaVA-1.5 <span id="ref2"></span>, InstructBLIP <span id="ref3"></span>, Mini-GPT4 <span id="ref4"></span>) and closed-source models (GPT-4V <span id="ref5"></span>, Gemini <span id="ref6"></span>,
-                Bard <span id="ref7"></span>). We also evaluate huamn performance through user studies. There is a significant performance gap between human and MLLM models, despite the latter often demonstrating impressive results. Models except GPT-4V and Gemini, scored below random guess level
-                (25%). Most advanced GPT-4V and Gemini also face challenges in addressing basic visual grounding questions. 
+                <br>
+                We benchmark state-of-the-art open-source (Cambrian-34B <span id="ref3"></span>, Chameleon-30b <span id="ref4"></span>, LLaVA-NeXT-34B <span id="ref5"></span>) and closed-source(GPT-4o <span id="ref7"></span>, Gemini-1.5-Pro <span id="ref6"></span>, Claude-Sonnet-3.5 <span id="ref8"></span>) MLLMs on the D<sub>3</sub> benchmark with self-retrieval evaluation. Results reveal that current MLLMs struggle to incorporate fine-grained visual details in their captions. Open-source models such as Cambrian-34B and LLaVA-NeXT-34B fail to even outperform random guess (25%). 
+                Although, closed-source models outscore random guess, they still struggle to discern fine-grained visual differences, with Claude-Sonnet-3.5 achieving the highest score of 45.7% on our benchmark.
+
                 <figure>
-                    <img src="images/result.png" alt="MMVP Framework">
-                    <figcaption> There is a huge gap between human performance and MLLM's performance on the simple visual questions in MMVP Benchmark. 
+                    <img src="images/baselines.jpg" alt="MMVP Framework">
+                    <figcaption> Both closed and open-source MLLMs stuggle to uniquely describe image from pairs in D<sub>3</sub> benchmark. 
                     </figcaption></figcaption>
                 </figure>
             </p>
         </section>
-        <section id="visualpatterns">
-            <h2>Visual Patterns that challenge CLIP models</h2>
-
-          
-            
+        <section id="pods">
+            <h2>Points of Difference in D<sub>3</sub> image pairs</h2>
            
             <p>
-                Having identified the CLIP-blind pairs, we summarize systematic visual patterns that the CLIP vision encoders might consistently misinterpret. We turn to the questions and options from the MMVP benchmark. With these questions, we transform abstract visual patterns in images into clearer, language-based descriptors that are easier to categorize. We identify 9 visual patterns:  
-                
+                Each image pair in D<sub>3</sub> are visually identical with one prominent <i>Point of Difference (POD)</i> distinguishing them. Similar to MMVP <span id="ref9"></span>, we identify 6 fine-grained <i>POD</i> that MLLMs struggle to identify: 
 
                 <div class="container">
-                    <!-- Table Container -->
-                    <div class="table-container">
-                        <table>
-                            <tr onclick="showImage('orientation')">
-                                <th><i class="fa fa-compass"></i></th>
-                                <td>Orientation and Direction</td>
-                            </tr>
-                            <tr onclick="showImage('presence')">
-                                <th><i class="fa fa-search"></i></th>
-                                <td>Presence of Specific Features</td>
-                            </tr>
-                            <tr onclick="showImage('state')">
-                                <th><i class="fa fa-sync"></i></th>
-                                <td>State and Condition</td>
-                            </tr>
-                            <tr onclick="showImage('quantity')">
-                                <th><i class="fa fa-sort-numeric-up"></i></th>
-                                <td>Quantity and Count</td>
-                            </tr>
-                            <tr onclick="showImage('color')">
-                                <th><i class="fa fa-palette"></i></th>
-                                <td>Color and Appearance</td>
-                            </tr>
-                            <tr onclick="showImage('positional')">
-                                <th><i class="fa fa-map-pin"></i></th>
-                                <td>Positional and Relational Context</td>
-                            </tr>
-                            <tr onclick="showImage('structural')">
-                                <th><i class="fa fa-cogs"></i></th>
-                                <td>Structural and Physical Characteristics</td>
-                            </tr>
-                            <tr onclick="showImage('texts')">
-                                <th><i class="fa fa-font"></i></th>
-                                <td>Text</td>
-                            </tr>
-                            <tr onclick="showImage('viewpoint')">
-                                <th><i class="fa fa-camera"></i></th>
-                                <td>Viewpoint and Perspective</td>
-                            </tr>
-                            <!-- Repeat for other categories -->
-                        </table>
-                    </div>
-            
-                    <!-- Image Placeholder -->
-                    <div>
-                        <img id="displayedImage" src="images/Failure Categories/orientation.png"  width="100%" alt="Category Image">
+                    <div class="pod-button-container">
+                        <button class="category-button" onclick="showImage('state')">State</button>
+                        <button class="category-button" onclick="showImage('camera')">Camera</button>
+                        <button class="category-button" onclick="showImage('orientation')">Orientation/Direction</button>
+                        <button class="category-button" onclick="showImage('positioning')">Positioning</button>
+                        <button class="category-button" onclick="showImage('scene')">Scene</button>
+                        <button class="category-button" onclick="showImage('clutter')">Clutter</button>
                     </div>
                 </div>
-            
+                
+                <div class="container">
+                    <div class="image-container">
+                        <img id="displayedImage" src="images/POD/state.jpg" alt="Category Image">
+                    </div>
+                </div>
                 <script>
-                    var lastCategory = 'orientation';
-            
+                    var lastCategory = '';
                     function showImage(category) {
-                        var imagePath = "images/Failure Categories/" + category + ".png";
+                        var imagePath = "images/POD/" + category + ".jpg";
                         var displayedImage = document.getElementById('displayedImage');
-            
-                        if(lastCategory === category) {
+                        if (lastCategory === category) {
                             displayedImage.style.display = displayedImage.style.display === 'none' ? 'block' : 'none';
                         } else {
                             displayedImage.src = imagePath;
@@ -364,66 +382,26 @@
                     }
                 </script>
 
-                (Click on Visual Patterns to see examples)
-
-
-
-
-
+                (Click on a specifc POD to see example)
                
             
-                            </p>
-            <h3 id="Scale">Scaling Up CLIP Doesn't Help Visual Patterns</h3>
-            <p>
-                CLIP models develop and scale over the years. We evaluate MMVP on a variety of CLIP models <span id="ref8"></span><span id="ref9"></span><span id="ref10"></span>. These models vary in aspects like size, training data, and methodology. As evidenced in the table, increasing network size and training data only aids in identifying two visual patterns – “color and appearance”
-                and “state and condition”. The rest of the visual patterns continue to challenge all CLIP-based models
-                <d-figure>
-                    <img src="images/clip.png" alt="SEAL-Bench Results" width="100%" style="display: block; margin-left: auto; margin-right: auto;">
-                    <figcaption> Models scaled up in resolution show minimal improvement, whereas a slight advantage is observed when scaling up the network. </figcaption></d-figure>
-
-            </p>
-
-            <h3 id="Correlation">CLIP mistakes and MLLMs Mistakes are Correlated</h3>
-            <p>
-
-                We plot CLIP’s performance and MLLMs' performance for each visual pattern. When the CLIP vision encoder underperforms on a certain visual pattern, the MLLM tends to exhibit similar shortcomings. Open-source models such as LLaVA 1.5 and InstructBLIP that explicitly use the CLIP vision encoder display a strong correlation in performance.
-                <d-figure>
-                    <img src="images/correlation.png" alt="SEAL-Bench Results" width="100%" style="display: block; margin-left: auto; margin-right: auto;">
-                    <figcaption> If CLIP performs poorly on a visual pattern such as ``orientation'', MLLMs also underperform on the visual pattern. </figcaption></d-figure>
-
             </p>
         </section>
         
         <section id="MoF">
-            <h2>Mixture-Of-Features (MoF) MLLM</h2>  
+            <h2>Whitebox Evaluation of MLLMs </h2>  
             <p>
-                <em>If open-sourced MLLM's visual shortcomings come from the CLIP vision encoder, how do we build a more competent visual encoder?</em> We take initial steps to answer the question by studying Mixture-of-Features (MoF) that mixs Vision-Only SSL (DINOv2 <span id="ref11"></span>) features and CLIP features. 
-                          <d-figure>
-                        <img src="images/mof_pipeline.png" alt="SEAL-Bench Results" width="100%" style="display: block; margin-left: auto; margin-right: auto;">
-                        <figcaption>Different Mixture-of-Feature (MoF) Strategies in MLLM. Left: Standard MLLM that uses CLIP as off-the-shelf pretrained vision encoder; Middle: Additive-MoF (A-MoF) MLLM: Linearly mixing CLIP and DINOv2 features before the adapter; Right: InterleavedMoF (I-MoF MLLM) Spatially interleaving CLIP visual tokens and DINOv2 visual tokens after the adapter.
-                        </figcaption>
+                Since image pairs in D<sub>3</sub> benchmark have only one prominent POD, Self-Retrieval within D<sub>3</sub> enables whitebox evaluation. Specifically, when an MLLM fails to uniquely describe and retrieve both images within a pair, we are able to accurately identify which one of the following visual concept the MLLM is unable to pick up: 
+        
+                <d-figure>
+                <img src="images/whitebox_eval.jpg" alt="SEAL-Bench Results" width="100%" style="display: block; margin-left: auto; margin-right: auto;">
+                <figcaption>
+                <strong>Whitebox Evaluation with D<sub>3</sub>:</strong> Self-retrieval performance of various MLLMs on image pairs of D<sub>3</sub> across all six points of difference.
+                </figcaption>
                 </d-figure>
             </p>
-
-            <h3 id="A-MoF">Vision-Only SSL features: Better Vision, Worse Language</h3>
+                We find that state-of-the-art MLLMs, both open and closed, struggle to perceive fine-grained changes in orientation/direction, camera angle, object's state, or positioning. This corroborates the findings of MMVP. In contrast, uniquely describing similar images with differing scenes appears to be easier for these models. V<sup>*</sup> <span id="ref10"></span> finds that MLLMs struggle to focus on fine-grained details in visually crowded images. While this is true for Cambrian-34B, closed-source MLLMs are capable of identifying characteristics of non-prominent objects to distinguish cluttered images.
             <p>
-
-                We add a pretrained DINOv2 encoder into MLLM and linearly mix the CLIP pretrained encoder with it. Our study reveals that 
-                <d-figure>
-                    <img src="images/A-MoF.png" alt="SEAL-Bench Results" width="50%" style="display: block; margin-left: auto; margin-right: auto;">
-
-                <ol>
-                    <li>As the proportion of DINOv2 features increases, MLLM exhibits a decline in its instruction-following capability. Notably, there is a sharp decrease when the DINOv2 proportion reaches 87.5%.</li>
-                    <li>A higher proportion of DINOv2 features enhances the model’s visual grounding capability, but this advantage diminishes when the DINOv2 proportion surpasses 0.75, at which point instruction-following is notably impaired.</li>
-                </ol>
-            </p>
-
-            <h3 id="I-MoF">Interleaved-MoF: Combining advantages from CLIP and DINOv2 features</h3>
-            <p>
-                We propose interleaved MoF to leverage advantages from both CLIP and DINOv2 embeddings to enhance image representation. We take the processed features from CLIP and DINOv2 and interleave them while maintaining their original spatial order.  Interleave MoF significantly enhances visual grounding, with a 10.7% increase observed in MMVP, without compromising the model’s ability to follow instructions. This experiment is replicated with the LLaVA-1.5 setting and under various image resolution settings, yielding similar enhancements in performance.
-                <d-figure>
-                    <img src="images/I-MoF.png" alt="SEAL-Bench Results" width="65%" style="display: block; margin-left: auto; margin-right: auto;">
-                    <figcaption> Interleaved MoF improves visual grounding while maintaining same level of instruction following ability. </figcaption></d-figure>
 
             </p>
         </section>
@@ -432,11 +410,11 @@
         <d-appendix>
             <h3>BibTeX</h3>
             <p class="bibtex">
-                @misc{tong2024eyes,<br>
-                &nbsp;&nbsp;title={Eyes Wide Shut? Exploring the Visual Shortcomings of Multimodal LLMs},<br>
-                &nbsp;&nbsp;author={Shengbang Tong and Zhuang Liu and Yuexiang Zhai and Yi Ma and Yann LeCun and Saining Xie}<br>
+                @misc{gaur2024no,<br>
+                &nbsp;&nbsp;title={Detect, Describe, Discriminate: Moving Beyond VQA for MLLM Evaluation},<br>
+                &nbsp;&nbsp;author={Manu Gaur and Darshan Singh S and Makarand Tapaswi}<br>
                 &nbsp;&nbsp;year={2024},<br>
-                &nbsp;&nbsp;eprint={2401.06209},<br>
+                &nbsp;&nbsp;eprint={},<br>
                 &nbsp;&nbsp;archivePrefix={arXiv},<br>
                 &nbsp;&nbsp;primaryClass={cs.CV}<br>
                 }
@@ -451,13 +429,10 @@
             <ul>
                    
                 </ul>
-            </div>
+            </div>  
         </d-appendix>
 
      
-        <!-- <script type="text/bibliography">
-        
-        </script> -->
         <script>
           
             var dContents = document.querySelector('d-contents');
@@ -561,3 +536,28 @@
 
     </body>
 </html>
+
+
+
+
+
+
+<!--  -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Category Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+
+
+    </style>
+</head>
+<body>
+
