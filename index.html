@@ -4,12 +4,12 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="template.v2.js"></script>
-        <script src="contents_bar.js"></script>
+        <script src="./static/js/template.v2.js"></script>
+        <script src="./static/js/contents_bar.js"></script>
         <script src="https://d3js.org/d3.v5.min.js"></script>
         <script src="https://d3js.org/d3-collection.v1.min.js"></script>
         <script src="https://rawgit.com/nstrayer/slid3r/master/dist/slid3r.js"></script>
-        <script src="cross_fade.js"></script>
+        <script src="./static/js/cross_fade.js"></script>
         <link rel="stylesheet" href="style.css">
         
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
@@ -25,6 +25,13 @@
 
             
             <style>
+                p {
+                font-size: 20px; /* Adjust the pixel value as needed */
+                }
+                .figcaption-font {
+                font-size: 16px; /* Adjust the font size as needed */
+                }
+
                 ol {
                     margin-top: 0;
                     margin-bottom: 0;
@@ -161,20 +168,24 @@
                 /* Additional styles can go here */
             </style>
 
+    <!-- Zoom -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>  <!-- jquery -->
+    <script defer src="./static/js/medium-zoom.min.js"></script>
+    <script defer src="./static/js/zoom.js"></script>
     </head>
     <body>
         <div class="header-container">
             <div class="header-content">
-              <h1>Detect, Describe, Discriminate: Moving Beyond VQA for MLLM Evaluation </h1>
+              <h1><i>No Detail Left Behind</i>: Revisiting Self-Retrieval for Fine-Grained Image Captioning</h1>
               <div class="button-container">
-                <a href="https://arxiv.org/" class="button">Paper</a>
-                <a href="https://github.com/manugaurdl/detect-describe-discriminate/" class="button">Code</a>
+                <a href="https://arxiv.org/abs/2409.03025" class="button">Paper</a>
+                <a href="https://github.com/manugaurdl/EGG/tree/rll_refactor" class="button">Code</a>
               </div>
             </div>
             <div class="header-image">
-                <img src="images/robot_flux.jpg" alt="Teaser Image" class="teaser-image">
+                <img src="images/D3.png" alt="Teaser Image" class="teaser-image">
                 <figcaption>
-                    This image was generated using Flux.1 [dev].
+                    This image was generated using Flux.1 [schnell].
                 </figcaption>
             </div>
         </div>
@@ -196,7 +207,9 @@
             </div>
         </div>
         
-        <div class="carousel-container">
+        <!-------------------CAROUSEL GANG!!!!-------------->
+        
+        <!-- <div class="carousel-container">
             <div class="carousel-slide active">
                 <img src="images/vqa_5.jpg" alt="Teaser Image 1">
             </div>
@@ -220,11 +233,11 @@
             <div class="carousel-caption">
                 <p><i>Current MLLMs fail during D3 evaluation despite achieving perfect score in VQA, Swipe for more</i></p>
             </div>
-        </div>
+        </div> -->
 
         
         
-
+    
     <script>
     let slideIndex = 0;
     showSlides(slideIndex);
@@ -299,7 +312,7 @@
 
 </script>
         
-        <d-contents>
+        <!-- <d-contents>
             <nav>
                 <h4>Contents</h4>
                 <div><a href="#mmvp">Moving Beyond VQA</a></div>
@@ -307,49 +320,194 @@
                 <div><a href="#patterns">Points of Difference in D<sub>3</sub> image pairs</a></div>
                 <div><a href="#mof">Whitebox Evaluation of MLLMs</a></div>
             </nav>
-        </d-contents>
+        </d-contents> -->
+
+        <!----------------------------------------------------INTRODUCTION -------------------------------------------------------------------->
+
+        <d-figure id="teaser" >
+            <figure>
+                <img data-zoomable="" draggable="false" src="images/motorcycle_teaser.png" alt="motorcycles" style="width: 1000px; height: auto; display: block; margin: 0 auto;">
+                <br>
+                <figcaption class="figcaption-font" style="text-align: center; width: 1000px; margin: 0 auto;">
+                    <strong>Figure 1</strong>: For a set of similar images, captioning systems struggle to uniquely describe each image. <strong>COCO MLE</strong>: A model trained on COCO with MLE generates the same description.
+                    Our proposed method (<strong>OURS SR</strong>) generates discriminant captions while vanilla self-retrieval training(Dessì et al., 2023)(<strong>COCO SR</strong>) fails to, leading to hallucinations such as “two people” (middle).
+                </figcaption>
+            </figure>
+        </d-figure>
         
         <p>
-            Given an image pair, it is easier for an MLLM to discern fine-grained differences when prompted with a question and/or multiple choices (VQA evaluation) than to independently detect and describe such differences (our evaluation). Our work finds that state-of-the-art MLLMs struggle to discern fine-grained difference with our Detect-Describe-Discriminate (D<sub>3</sub>) evaluation framework, with open-source MLLMs failing to outperform random guess. 
+            Image captioning systems are unable to generate fine-grained captions, often using generic descriptions that fail to discriminate visually similar images. 
+            In this work, <i>we holistically improve captioning systems by making their <strong>Training</strong> and <strong>Evaluation</strong> more fine-grained</i>:
+            <br>
+            <br>
 
-        </p>
-        <section id="introduction">
-            <h2>Moving Beyond VQA</h2>
-        </section>
-        <p>
-            VQA with multiple choices provides a reliable method for checking the existence of specific visual abilities. However, we find that it is <i>easier for the model to select an answer from multiple choices than to generate the answer itself </i>. Specifically, providing the answer along with task prompt (through multiple choice options or as part of the question) biases the MLLM's output towards the visual concept that is being evaluated.
-        </p>
-        <h3 id="Scale">Self-Retrieval Evaluation</h3>
-        <p>
-            In this work, we offer a novel perspective for fine-grained evaluation: we assess how well an MLLM understands a specific visual concept by its ability to uniquely describe two extremely similar images that differ only in the targeted visual concept.
-            Unlike VQA, we do not constrain the output to multiple choice answers and directly evaluate the model's free-form generation.
-            Specifically, we assess the MLLMs ability to capture subtle visual distinctions using self-retrieval evaluation , i.e., <i>by retrieving the target image using its generated caption against the other image in the pair serving as the distractor</i> <span id="ref1"></span> <span id="ref2"></span>.
-        </p>
-        <section id="D3">
-            <h2>MLLMs struggle with fine-grained Visual Discrimination</h2>
-            <p>
-                We curate extremely similar image pairs, each having one prominent point of visual difference such that uniquely describing each image within the pair entails capturing a specific facet of visual understanding. With 247 such image pairs, we introduce the <strong>D<sub>3</sub></strong> benchmark. For each image in the pair, we prompt the model to:
-                <ol>
-                    <li><strong>Detect </strong> the visual difference,</li>
-                    <li><strong>Describe</strong> the target image uniquely such that it,</li>
-                    <li><strong>Discriminates </strong> the target image from the distractor.</li>
-                </ol>
-
-            </p>
-            <p>
-                <br>
-                We benchmark state-of-the-art open-source (Cambrian-34B <span id="ref3"></span>, Chameleon-30b <span id="ref4"></span>, LLaVA-NeXT-34B <span id="ref5"></span>) and closed-source(GPT-4o <span id="ref7"></span>, Gemini-1.5-Pro <span id="ref6"></span>, Claude-Sonnet-3.5 <span id="ref8"></span>) MLLMs on the D<sub>3</sub> benchmark with self-retrieval evaluation. Results reveal that current MLLMs struggle to incorporate fine-grained visual details in their captions. Open-source models such as Cambrian-34B and LLaVA-NeXT-34B fail to even outperform random guess (25%). 
-                Although, closed-source models outscore random guess, they still struggle to discern fine-grained visual differences, with Claude-Sonnet-3.5 achieving the highest score of 45.7% on our benchmark.
-
-                <figure>
-                    <img src="images/baselines.jpg" alt="MMVP Framework">
-                    <figcaption> Both closed and open-source MLLMs stuggle to uniquely describe image from pairs in D<sub>3</sub> benchmark. 
-                    </figcaption></figcaption>
+            <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: start;">
+                <div style="flex: 1; min-width: 300px;margin-top: 20px;">
+                    <strong style="font-size: 22px">Towards Fine-grained Evaluation</strong>
+                    <p style="font-size: 19px;">
+                    <br>Traditional image captioning metrics fail to reward diversity or evaluate a model's fine-grained understanding ability.
+                    Our first contribution addresses this by proposing <strong>self-retrieval</strong> (setup shown in <a href="#sr_setup">Figure 2</a>) from a lens of evaluating captioning systems: 
+                    </p>
+                    <br>
+                    <ol>
+                        <li style="line-height: 1.5; font-size: 19px;"><strong><a href="#truematch">Fine-grained Evaluation</a></strong>: We introduce <strong><i>TrueMatch</i></strong>, a benchmark comprising bags of highly similar images that uses self-retrieval to assess the captioner's ability to capture subtle visual distinctions.</li>
+                    </ol>
+                </div>
+                
+                <figure id ='sr_setup' style="flex: 1; min-width: 300px; margin: 0; margin-top:-40px;">
+                    <img data-zoomable="" draggable="false" src="images/sr_setup.png" alt="motorcycles" style="width: 600px; height: auto; display: block;">
+                    <figcaption class="figcaption-font" style="text-align: center; margin-top: 10px; margin-left:30px;margin-right: -80px; width:550px">
+                        <strong>Figure 2:</strong> Self-retrieval judges the ability of a captioner to retrieve an image using its <i>generated caption</i> against of bag of distractor images. <a href="https://arxiv.org/pdf/2304.01662">Image source</a>.
+                    </figcaption>
                 </figure>
+            </div>            
+
+
+
+            <strong style="font-size: 22px"> Towards Fine-grained Training </strong><br>
+            <p>Image captioning systems are unable to generate fine-grained captions as they are trained on data that is either noisy (alt-text) or generic (human annotations). This is further exacerbated by MLE training that encourages captioning systems to overuse common concepts and statistically probable phrases.
+            We address this on two fronts: 
+            <ol start="2">
+                <li style="line-height: 1.5; font-size: 19px;"><strong><a href="#vcb">Data</a></strong>: We present <strong><i>Visual Caption Boosting</i></strong> to instill fine-grainedness in generic image captioning datasets while remaining anchored in human annotations.</li>
+                <li style="line-height: 1.5; font-size: 19px;"><strong><a href="#training">Self-Retrieval Training</a></strong>: We design a <i>training recipe</i> to optimally leverage the self-retrieval reward and instill fine-grained visual information in the captioner.   
+            </ol>
+            <p style="font-size: 19px;">
+            Jointly, they enable the captioner to describe fine-grained aspects in the image while preserving faithfulness to ground-truth captions.
             </p>
+            </p>
+        </p>
+
+        <div class="icon-row">
+            <a href="#truematch" class="icon-link">
+                <img src="images/icons/eval.svg" alt="Eval Logo" class="icon">
+                Evaluation
+            </a>
+            <a href="#vcb" class="icon-link">
+                <img src="images/icons/visual.svg" alt="Visual Representation Logo" class="icon">
+                Data
+            </a>
+            <a href="#training" class="icon-link">
+                <img src="images/icons/recipe.svg" alt="Recipe Logo" class="icon">
+                Training Recipe
+            </a>
+        </div>
+
+        <p class="click-hint" style="width: 85%;">
+            <img src="images/icons/click.gif" style="width: 1.5rem">
+            <strong>Click to jump to each section.</strong>
+        </p>
+
+        <!------------------------------------------------Section 1: Evaluation--------------------------------------------------------->
+        <section id="truematch">
+            <h2>I. <i>TrueMatch</i>: Fine-grained Evaluation of Captioning Systems</h2>
+            <p style="font-size: 19px;">
+
+                <u>Reference-based metrics</u> such as BLEU, CIDEr and SPICE tend to penalize specificity, often favoring generic descriptions (Wang et al., 2020). <u>Reference-free metrics</u> like CLIPScore (Hessel et al., 2021) alleviate this issue by directly measuring image-text similarity, but may fail to encourage diverse and discriminant captions.
+
+                <br><br>
+                Existing self-retrieval (SR) approaches require models to select the target image from a set of N random distractor images(Dessì et al., 2023) which often have simple differences (e.g. the primary object or scene), making it easy for captioning systems to distinguish between them.
+                In this work, we construct <strong>bags of highly similar images</strong>, where uniquely describing each image within a bag requires describing various facets of visual understanding. For example, retrieving the target image from <a href="#teaser"> Figure 1 </a> requires the caption to incorporate information about attributes <i>(red bike)</i> or orientation <i>(inverted body)</i>.             
+                <span style="color: red;">we are doing SR evaluation</span>
+
+                
+                <br><br>
+            </p>
+            <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: start;">
+                <div style="flex: 1; min-width: 300px;margin-top: 10px;">
+                    <p style="font-size: 19px;">
+                    <strong style="font-size: 25px">Benchmarking Captioning Systems on <i>TrueMatch</i></strong>
+                    <br><br>
+                    <a href="#table_1">Table 1</a> evaluates several open-source captioning approaches, MLLMs, and SR trained models on TrueMatch. 
+                    <ul>
+                        <li style="line-height: 1.2; font-size: 19px;"> Irrespective of their size, current captioners struggle to capture fine-grained visual details leading to poor performance on TrueMatch.</li>
+                        <li style="line-height: 1.2; font-size: 19px;">  Our SR training recipe outperforms vanilla SR (DiscriTune) by +14.4% to +19.5%, demonstrating its effectiveness.</li>
+                        <li style="line-height: 1.2; font-size: 19px;">  <strong>Cambrian-1</strong> is the best-performing open-source MLLM. Our proposed approach outperforms it significantly despite being 30x smaller.</li>
+                    </ul>
+                    </p>
+                </div>
+                
+                <figure id ='table_1' style="flex: 1; min-width: 300px; margin: 0;margin-top:-10px">
+                    <img data-zoomable="" draggable="false" src="images/table_1.png" alt="table1" style="width: 550px; height: auto; display: block;">
+                    <figcaption class="figcaption-font" style="text-align: center; margin-top: 10px; margin-left:30px;margin-right: -80px; width:500px">
+                        <strong>Table 1:</strong> Recall@1 for self-retrieval evaluation with TrueMatch is reported. The number
+                        of bags in #3 is 254, #5 is 104, and #7 is 93
+                    </figcaption>
+                </figure>
+            </div>  
+
+
+
         </section>
-        <section id="pods">
-            <h2>Points of Difference in D<sub>3</sub> image pairs</h2>
+        
+        <!------------------------------------------------Section 2: DATA--------------------------------------------------------------->
+
+        <section id="vcb">
+            <h2>II. <i>Visual Caption Boosting</i></h2>
+        </section>
+        <p style="font-size: 19px;">
+            Existing image captioning datasets like COCO (Lin et al., 2014) comprise generic annotations such as <i>“There is a herd of zebras standing around” </i>(see Figure 3). 
+            To address this, recent works leverage foundation models to synthetically expand visual information within
+            captions. However they are prone to inherit biases present in foundation models (Sirotkin
+            et al., 2022; Salman et al.).
+            Additionally, these methods produce verbose descriptions that often exceed the token capacity of VLMs (CLIP with 77 tokens) and makes them prone to hallucinations (Favero et al., 2024).
+            <br><br>
+
+            We find that although the individual COCO captions are sparse, they describe complementary facets of the image, e.g. <i>“watering hole”, “bird flying over”, “herd of zebras”</i> (see Figure 3).
+
+            VCB is a novel two stage framework leverages foundation models and the diverse perspectives offered by human annotators to generate rich descriptions while being anchored in human data:
+        </p>
+        
+        <d-figure id="vcb_teaser" >
+            <figure>
+                <img data-zoomable="" draggable="false" src="images/vcb_teaser.png" alt="table1" style="width: 1100px; height: auto; display: block; margin: 0 auto;">
+                <br>
+                <figcaption class="figcaption-font" style="text-align: center; width: 1000px; margin: 0 auto;">
+                    <strong>Figure 1:</strong> Analyzing the benchmarks.
+                    <strong>Left:</strong> Performance comparison of MLLMs with visual input enabled and disabled across various benchmarks. 
+                </figcaption>
+            </figure>
+        </d-figure>
+        <p style="font-size: 19px;">
+            <strong style="font-size: 22px">Stage 1: BlendCap</strong> leverages an off-the-shelf LLM to create a blended caption that combines multiple facets of visual information that the diverse human annotations capture. Notably, <i>we prompt the LLM to minimize redundant information resulting in short descriptions</i>.
+                
+            <br><br>
+
+            <strong style="font-size: 22px">Stage 2: HolisticCap</strong> builds upon BlendCap by incorporating a fine-grained visual description produced by an MLLM. Specifically, we prompt the LLM to instill the visual caption into the blended caption while preferring human-grounded BlendCap in case of conflicting visual information. Additionally, the anchoring of semantic visual information in human annotations encourages the LLM to eliminate verbose tendencies of MLLMs, producing rich and succinct captions that capture fine-grained details.
+            
+            <span style="color: red;">split text b/w caption and body</span>
+            <!-- this enables the LLM to ignore specific details from the visual caption such as “river or lake” and “drinking”, as they conflict with BlendCap’s description like “watering hole” and “grazing and standing”. -->
+
+        
+        <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: start;">
+            <div style="flex: 1; min-width: 300px;margin-top: 30px;">
+                <p style="font-size: 19px;">
+                <strong style="font-size: 25px">Benchmarking Visually Boosted Captions on <i>TrueMatch</i></strong>
+                <br>
+                <ul>
+                    <li style="line-height: 1.4; font-size: 19px;">BlendCap significantly outperforms original COCO captions on RD100 and  ClipScore, confirming that human annotations capture complementary visual aspects of the same image.
+                    </li>
+                    <li style="line-height: 1.4; font-size: 19px;">HolisticCap (unlike BlendCap) yields substantantial gains over COCO across bags of TrueMatch. 
+                    </li>
+                </ul>
+                </p>
+                <p style="font-size: 19px;">
+                <span style="color: rgb(31, 104, 252);"><strong><i>This demonstrates the effectiveness of VCB in instilling fine-grained visual details into standard image captioning datasets.</i><strong></span></p>
+            </div>              
+            
+            <figure id ='table_2' style="flex: 1; min-width: 300px; margin: 0;">
+                <img data-zoomable="" draggable="false" src="images/table_2.png" alt="table1" style="width: 450px; height: auto; display: block;margin-left:0px;margin-top:50px">
+                <figcaption class="figcaption-font" style="text-align: center; margin-top: 10px; margin-left:-20px;margin-right: -80px; width:500px">
+                    <strong>Table 2:</strong> : R@1 scores for COCO and VCB captions evaluated on RD100 (100 random distractors) and TrueMatch.
+                </figcaption>
+            </figure>
+        </div>  
+        </p>
+
+        <!-- moose -->
+        <!------------------------------------------------Section 2: Training --------------------------------------------------------------->
+
+        <section id="training">
+            <h2>Guiding captioners away from their language modeling priors</h2>
            
             <p>
                 Each image pair in D<sub>3</sub> are visually identical with one prominent <i>Point of Difference (POD)</i> distinguishing them. Similar to MMVP <span id="ref9"></span>, we identify 6 fine-grained <i>POD</i> that MLLMs struggle to identify: 
@@ -417,7 +575,7 @@
                 &nbsp;&nbsp;title={Detect, Describe, Discriminate: Moving Beyond VQA for MLLM Evaluation},<br>
                 &nbsp;&nbsp;author={Manu Gaur and Darshan Singh S and Makarand Tapaswi}<br>
                 &nbsp;&nbsp;year={2024},<br>
-                &nbsp;&nbsp;eprint={},<br>
+                &nbsp;&nbsp;eprint={2409.15125},<br>
                 &nbsp;&nbsp;archivePrefix={arXiv},<br>
                 &nbsp;&nbsp;primaryClass={cs.CV}<br>
                 }
@@ -433,6 +591,11 @@
                    
                 </ul>
             </div>  
+            
+            <h3>Acknowledgements</h3>
+            <p class="bibtex">
+                This project page is built upon <a href="https://tsb0601.github.io/mmvp_blog/">MMVP</a>.
+            </p>
         </d-appendix>
 
      
@@ -553,14 +716,13 @@
     <title>Image Category Viewer</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: Charter, serif;
             margin: 0;
             padding: 0px;
             box-sizing: border-box;
-        }
+         }
 
 
     </style>
 </head>
 <body>
-
