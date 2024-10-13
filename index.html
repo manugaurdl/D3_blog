@@ -25,6 +25,19 @@
 
             
             <style>
+
+
+                .bibtex {
+                font-family: 'Courier New', Courier, monospace;
+                background-color: #f9f9f9;
+                padding: 2em;
+                color: #222;
+                font-size: 1em;
+                width:770px
+                }
+                    /* h1, h2, h3, h4 {
+                   font-family: Lato, sans-serif;
+                }        */
                 d-article {
                 overflow: visible; /* Ensure the article container allows overflow */
                 }
@@ -32,7 +45,7 @@
                 font-size: 20px; /* Adjust the pixel value as needed */
                 }
                 .figcaption-font {
-                font-size: 16px; /* Adjust the font size as needed */
+                font-size: 17px; /* Adjust the font size as needed */
                 }
 
                 ol {
@@ -162,8 +175,8 @@
                 }
                 
                 .header-container {
-                    background-color: transparent; /* Dark teal background */
-                    color: black;
+                    background-color: rgb(255, 249, 200);
+                    color: rgb(242, 149, 83);
                     text-align: center; /* Center content on small screens */
                     padding: 20px; /* Reduced padding for small screens */
                 }
@@ -179,14 +192,14 @@
     <body>
         <div class="header-container">
             <div class="header-content">
-              <h1><i>No Detail Left Behind</i>: Revisiting Self-Retrieval for Fine-Grained Image Captioning</h1>
-              <div class="button-container">
+              <h1 style="margin-left: 80px;"><i>No Detail Left Behind</i>:<br> Revisiting Self-Retrieval for Fine-Grained Image Captioning</h1>
+              <div class="button-container" style="margin-left: 80px;">
                 <a href="https://arxiv.org/abs/2409.03025" class="button">Paper</a>
                 <a href="https://github.com/manugaurdl/EGG/tree/rll_refactor" class="button">Code</a>
               </div>
             </div>
-            <div class="header-image">
-                <img src="images/D3.png" alt="Teaser Image" class="teaser-image">
+            <div class="header-image" style="width:800px;margin-top: 10px;">
+                <img src="images/header_teaser.png" alt="Teaser Image" class="teaser-image">
                 <figcaption>
                     This image was generated using Flux.1 [schnell].
                 </figcaption>
@@ -325,15 +338,17 @@
             </nav>
         </d-contents> -->
 
-        <!----------------------------------------------------INTRODUCTION -------------------------------------------------------------------->
+        <!------------------------------------------------INTRODUCTION ---------------------------------------------------------------->
 
         <d-figure id="teaser" >
             <figure>
                 <img data-zoomable="" draggable="false" src="images/motorcycle_teaser.png" alt="motorcycles" style="width: 1000px; height: auto; display: block; margin: 0 auto;">
                 <br>
                 <figcaption class="figcaption-font" style="text-align: center; width: 1000px; margin: 0 auto;">
-                    <strong>Figure 1</strong>: For a set of similar images, captioning systems struggle to uniquely describe each image. <strong>COCO MLE</strong>: A model trained on COCO with MLE generates the same description.
-                    Our proposed method (<strong>OURS SR</strong>) generates discriminant captions while vanilla self-retrieval training(Dessì et al., 2023)(<strong>COCO SR</strong>) fails to, leading to hallucinations such as “two people” (middle).
+                    <strong>Figure 1</strong>:
+                    <!-- For a set of similar images, captioning systems struggle to uniquely describe each image.  -->
+                    A model trained on COCO with MLE (<strong>COCO MLE</strong>) generates the same description for each image.
+                    Our proposed method (<strong>OURS SR</strong>) generates discriminant captions while vanilla self-retrieval training(<strong>COCO SR</strong>) fails to, leading to hallucinations such as “two people” (middle).
                 </figcaption>
             </figure>
         </d-figure>
@@ -368,49 +383,49 @@
 
 
             <strong style="font-size: 22px"> Towards Fine-grained Training </strong><br>
-            <p>Image captioning systems are unable to generate fine-grained captions as they are trained on data that is either noisy (alt-text) or generic (human annotations). This is further exacerbated by MLE training that encourages captioning systems to overuse common concepts and statistically probable phrases.
-            We address this on two fronts: 
+            <p>Image captioning systems are unable to generate fine-grained captions as they are trained on data that is either noisy (alt-text) or generic (human annotations). This is further exacerbated by MLE training that encourages captioning systems to overuse statistically probable phrases.
+            Our next contributions address this on two fronts: 
             <ol start="2">
                 <li style="line-height: 1.5; font-size: 19px;"><strong><a href="#vcb">Data</a></strong>: We present <strong><i>Visual Caption Boosting</i></strong> to instill fine-grainedness in generic image captioning datasets while remaining anchored in human annotations.</li>
                 <li style="line-height: 1.5; font-size: 19px;"><strong><a href="#training">Self-Retrieval Training</a></strong>: We design a <i>training recipe</i> to optimally leverage the self-retrieval reward and instill fine-grained visual information in the captioner.   
             </ol>
-            <p style="font-size: 19px;">
+            <!-- <p style="font-size: 19px;">
             Jointly, they enable the captioner to describe fine-grained aspects in the image while preserving faithfulness to ground-truth captions.
-            </p>
+            </p> -->
             </p>
         </p>
 
         <div class="icon-row">
-            <a href="#truematch" class="icon-link">
+            <a href="#truematch" class="icon-link" target="_blank">
                 <img src="images/icons/eval.svg" alt="Eval Logo" class="icon">
                 Evaluation
             </a>
-            <a href="#vcb" class="icon-link">
+            <a href="#vcb" class="icon-link" target="_blank">
                 <img src="images/icons/visual.svg" alt="Visual Representation Logo" class="icon">
                 Data
             </a>
-            <a href="#training" class="icon-link">
+            <a href="#training" class="icon-link" target="_blank">
                 <img src="images/icons/recipe.svg" alt="Recipe Logo" class="icon">
                 Training Recipe
             </a>
         </div>
 
-        <p class="click-hint" style="width: 85%;">
+        <!-- <p class="click-hint" style="width: 5%;">
             <img src="images/icons/click.gif" style="width: 1.5rem">
             <strong>Click to jump to each section.</strong>
-        </p>
+        </p> -->
 
-        <!------------------------------------------------Section 1: Evaluation--------------------------------------------------------->
+        <!---------------------------------------------Section 1: Evaluation----------------------------------------------------->
         <section id="truematch">
             <h2>I. <i>TrueMatch</i>: Fine-grained Evaluation of Captioning Systems</h2>
             <p style="font-size: 19px;">
 
-                <u>Reference-based metrics</u> such as BLEU, CIDEr and SPICE tend to penalize specificity, often favoring generic descriptions (Wang et al., 2020). <u>Reference-free metrics</u> like CLIPScore (Hessel et al., 2021) alleviate this issue by directly measuring image-text similarity, but may fail to encourage diverse and discriminant captions.
-
-                <br><br>
-                Existing self-retrieval (SR) approaches require models to select the target image from a set of N random distractor images (Dessì et al., 2023) which often have simple differences (e.g. the primary object or scene), making it easy for captioning systems to distinguish between them.
-                In this work, we construct <strong>bags of highly similar images</strong>, where uniquely describing each image within a bag requires describing various facets of visual understanding. For example, retrieving the target image from <a href="#teaser"> Figure 1 </a> requires the caption to incorporate information about attributes <i>(red bike)</i> or orientation <i>(inverted body)</i>.             
-                <span style="color: red;">we are doing SR evaluation</span>
+                <!-- <u>Reference-based metrics</u> such as BLEU, CIDEr and SPICE tend to penalize specificity, often favoring generic descriptions (Wang et al., 2020). <u>Reference-free metrics</u> like CLIPScore (Hessel et al., 2021) alleviate this issue by directly measuring image-text similarity, but may fail to encourage diverse and discriminant captions. -->
+                <!-- Existing self-retrieval (SR) approaches require models to select the target image from a set of N random distractor images (Dessì et al., 2023) which often have simple differences (e.g. the primary object or scene), making it easy for captioning systems to distinguish between them. -->
+                <!-- In this work,  -->
+                We construct <strong>bags of highly similar images</strong> with <u>varying sizes</u>, where uniquely describing each image within a bag requires capturing various facets of visual understanding.
+                TrueMatch offers a comprehensive framework for holistically evaluating captioning systems with self-retrieval.
+                For example, retrieving the target image from <a href="#teaser"> Figure 1 </a> requires the caption to incorporate information about attributes <i>(red bike)</i> or orientation <i>(inverted body)</i>.             
 
                 
                 <br><br>
@@ -422,16 +437,16 @@
                     <br><br>
                     <a href="#table_1">Table 1</a> evaluates several open-source captioning approaches, MLLMs, and SR trained models on TrueMatch. 
                     <ul>
-                        <li style="line-height: 1.2; font-size: 19px;"> Irrespective of their size, current captioners struggle to capture fine-grained visual details leading to poor performance on TrueMatch.</li>
+                        <li style="line-height: 1.2; font-size: 19px;"> Irrespective of their size, captioners struggle to capture fine-grained visual details leading to poor performance on TrueMatch.</li>
                         <li style="line-height: 1.2; font-size: 19px;">  Our SR training recipe outperforms vanilla SR (DiscriTune) by +14.4% to +19.5%, demonstrating its effectiveness.</li>
-                        <li style="line-height: 1.2; font-size: 19px;">  <strong>Cambrian-1</strong> is the best-performing open-source MLLM. Our proposed approach outperforms it significantly despite being 30x smaller.</li>
+                        <li style="line-height: 1.2; font-size: 19px;">  <strong>Cambrian-1</strong> is the best-performing open-source MLLM. Our proposed approach significantly outperforms it despite being 30x smaller.</li>
                     </ul>
                     </p>
                 </div>
                 
-                <figure id ='table_1' style="flex: 1; min-width: 300px; margin: 0;margin-top:-10px">
+                <figure id ='table_1' style="flex: 1; min-width: 300px; margin: 0;margin-top:-30px">
                     <img data-zoomable="" draggable="false" src="images/table_1.png" alt="table1" style="width: 550px; height: auto; display: block;">
-                    <figcaption class="figcaption-font" style="text-align: center; margin-top: 10px; margin-left:30px;margin-right: -80px; width:500px">
+                    <figcaption class="figcaption-font" style="text-align: center; margin-top: 10px; width:550px">
                         <strong>Table 1:</strong> Recall@1 for self-retrieval evaluation with TrueMatch is reported. The number
                         of bags in #3 is 254, #5 is 104, and #7 is 93
                     </figcaption>
@@ -442,52 +457,53 @@
 
         </section>
         
-        <!------------------------------------------------Section 2: DATA--------------------------------------------------------------->
+        <!----------------------------------------------Section 2: DATA------------------------------------------------------------>
 
         <section id="vcb">
             <h2>II. <i>Visual Caption Boosting</i></h2>
         </section>
         <p style="font-size: 19px;">
-            Existing image captioning datasets like COCO (Lin et al., 2014) comprise generic annotations such as <i>“There is a herd of zebras standing around” </i>(see Figure 3). 
-            To address this, recent works leverage foundation models to synthetically expand visual information within
-            captions. However they are prone to inherit biases present in foundation models (Sirotkin
-            et al., 2022; Salman et al.).
-            Additionally, these methods produce verbose descriptions that often exceed the token capacity of VLMs (CLIP with 77 tokens) and makes them prone to hallucinations (Favero et al., 2024).
+            Existing image captioning datasets like MSCOCO comprise generic annotations. 
+            While recent works address this by synthetically expanding visual information within the captions, they are prone to inherit biases present in foundation models.
+            <!-- Additionally, these methods produce verbose descriptions that often exceed the token capacity of VLMs (CLIP with 77 tokens) and makes them prone to hallucinations (Favero et al., 2024). -->
+            Interestingly, although the individual COCO captions are sparse, we find that they describe complementary facets of the image (see <a href="#vcb_teaser">Figure 3</a>).
             <br><br>
-
-            We find that although the individual COCO captions are sparse, they describe complementary facets of the image, e.g. <i>“watering hole”, “bird flying over”, “herd of zebras”</i> (see Figure 3).
-
-            VCB is a novel two stage framework leverages foundation models and the diverse perspectives offered by human annotators to generate rich descriptions while being anchored in human data:
+            VCB is a novel two stage framework leverages <u>foundation models</u>
+            <!-- and the diverse perspectives offered by human annotators  -->
+            to generate rich descriptions while being <u>anchored in human data</u>:
         </p>
         
         <d-figure id="vcb_teaser" >
             <figure>
                 <img data-zoomable="" draggable="false" src="images/vcb_teaser.png" alt="table1" style="width: 1100px; height: auto; display: block; margin: 0 auto;">
                 <br>
-                <figcaption class="figcaption-font" style="text-align: center; width: 1000px; margin: 0 auto;">
-                    <strong>Figure 1:</strong> Analyzing the benchmarks.
-                    <strong>Left:</strong> Performance comparison of MLLMs with visual input enabled and disabled across various benchmarks. 
+                <figcaption class="figcaption-font" style="text-align: center; width: 1100px; margin: 0 auto;">
+                    <strong>Figure 3: VCB Framework.</strong> Generic COCO captions are visually boosted using complementary details present in human annotations VCB ignores specific details from the visual caption (“river or lake”, “drinking”), as they conflict with annotations (“watering hole”, “grazing and standing”).
                 </figcaption>
             </figure>
         </d-figure>
         <p style="font-size: 19px;">
-            <strong style="font-size: 22px">Stage 1: BlendCap</strong> leverages an off-the-shelf LLM to create a blended caption that combines multiple facets of visual information that the diverse human annotations capture. Notably, <i>we prompt the LLM to minimize redundant information resulting in short descriptions</i>.
+            <strong style="font-size: 20px">Stage 1: BlendCap</strong> uses an LLM to create a blended caption that combines diverse perspectives 
+            <!-- multiple facets of visual information that  -->
+            offered by different human annotations.
+            Notably, <i>we prompt the LLM to minimize redundant information resulting in short descriptions</i>.
                 
             <br><br>
 
-            <strong style="font-size: 22px">Stage 2: HolisticCap</strong> builds upon BlendCap by incorporating a fine-grained visual description produced by an MLLM. Specifically, we prompt the LLM to instill the visual caption into the blended caption while preferring human-grounded BlendCap in case of conflicting visual information. Additionally, the anchoring of semantic visual information in human annotations encourages the LLM to eliminate verbose tendencies of MLLMs, producing rich and succinct captions that capture fine-grained details.
-            
-            <span style="color: red;">split text b/w caption and body</span>
-            <!-- this enables the LLM to ignore specific details from the visual caption such as “river or lake” and “drinking”, as they conflict with BlendCap’s description like “watering hole” and “grazing and standing”. -->
+            <strong style="font-size: 20px">Stage 2: HolisticCap</strong> 
+            expands BlendCap by using an LLM to instill fine-grained details from the Visual Caption (InstructBLIP).
+            The LLM is prompted to prefer human-grounded BlendCap in case of conflicting visual information.
+            <br><br>
+            Anchoring semantic visual information in human annotations <u><i>reduces verbose tendencies of MLLMs</i></u>, producing rich and succinct captions.
         </p>
         
-        <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: start;">
+        <div style="display: flex; flex-wrap: wrap; gap: 50px; align-items: start;">
             <div style="flex: 1; min-width: 300px;margin-top: 30px;">
                 <p style="font-size: 19px;">
                 <strong style="font-size: 25px">Benchmarking Visually Boosted Captions on <i>TrueMatch</i></strong>
                 <br>
                 <ul>
-                    <li style="line-height: 1.4; font-size: 19px;">BlendCap significantly outperforms original COCO captions on RD100 and  ClipScore, confirming that human annotations capture complementary visual aspects of the same image.
+                    <li style="line-height: 1.4; font-size: 19px;">BlendCap significantly outperforms individual COCO captions on RD100 and  ClipScore, confirming that human annotations capture complementary visual aspects of the same image.
                     </li>
                     <li style="line-height: 1.4; font-size: 19px;">HolisticCap (unlike BlendCap) yields substantantial gains over COCO across bags of TrueMatch. 
                     </li>
@@ -503,15 +519,20 @@
                 </figcaption>
             </figure>
         </div>
-        <br>
-        <p style="font-size: 19px;">
-            <span style="color: rgb(31, 104, 252);"><strong><i>This demonstrates the effectiveness of VCB in instilling fine-grained visual details into standard image captioning datasets.</i><strong></span></p>
+        <d-figure>
+            <figure>
+                <img data-zoomable="" draggable="false" src="images/vcb_finding.png" alt="table1" style="width: 1100px; height: auto; display: block;margin-left: -10px; margin-top: 20px;">
+                <br>
+            </figure>
+        </d-figure>
+        <!-- <p style="font-size: 19px;">
+            <span style="color: rgb(31, 104, 252);"><strong><i>This demonstrates the effectiveness of VCB in instilling fine-grained visual details into standard image captioning datasets.</i><strong></span></p> -->
 
 
-        <!------------------------------------------------Section 3: Training --------------------------------------------------------------->
+        <!---------------------------------------------Section 3: Training ----------------------------------------------------------->
 
         <section id="training">
-            <h2>III. Guiding captioners away from their language modeling priors</h2>
+            <h2 style="margin-top: -10px;">III. Guiding captioners away from their language modeling priors</h2>
 
             <!-- CLIPCAP -->
             <div style="display: flex; flex-wrap: wrap; gap: 20px; width: 1500px; align-items: start;">
@@ -528,20 +549,20 @@
                     </p>
                 </div>              
                 
-                <figure id ='table_2' style="flex: 1; min-width: 300px; margin: 0;">
-                    <img data-zoomable="" draggable="false" src="images/clipcap.jpg" alt="table1" style="width: 350px; height: auto; display: block;margin-left:0px;margin-top:0px">
-                    <figcaption class="figcaption-font" style="text-align: center; margin-top: 0px; margin-left:-20px; width:380px">
-                        <strong>Figure 4:</strong> : ClipCap connects a CLIP visual encoder to a GPT-2 through a simple MLP adapter.
+                <figure id ='clipcap' style="flex: 1; min-width: 300px; margin: 0;">
+                    <img data-zoomable="" draggable="false" src="images/clipcap.jpg" alt="table1" style="width: 300px; height: auto; display: block;margin-left:0px;margin-top:0px">
+                    <figcaption class="figcaption-font" style="text-align: center; margin-top: 0px; margin-left:-20px; width:350px">
+                        <strong>Figure 4:</strong> : ClipCap connects a CLIP visual encoder to a GPT-2 through a MLP adapter.
                     </figcaption>
                 </figure>
             </div>  
         
-        <br>
+        <br><br>
         <p style="font-weight: normal; font-size: 19px;">
         <!------------------------------------------------SR-L --------------------------------------------------------------->
-        <strong style="font-size: 25px">Fine-tuning the Language Model with Self-Retrieval (SR-L): A Deep Dive</strong>
+        <strong style="font-size: 25px;">Fine-tuning the Language Model with Self-Retrieval (SR-L): A Deep Dive</strong>
         <br><br>
-        <strong>MLE encourages generation of generic descriptions.</strong> Retrieval performance of MLE trained captioner reduces substantially for all datasets (rows 1-3) compared to their ground-truth captions (see Table 2).
+        <strong>MLE encourages generation of generic descriptions.</strong> Retrieval performance of MLE trained captioner reduces substantially for all datasets (rows 1-3) compared to their ground-truth captions (<a href="#table_2">see Table 2</a>).
 
         <br><br>
         
@@ -554,7 +575,7 @@
                 <img data-zoomable="" draggable="false" src="images/table_3.png" alt="table1" style="width:660px; height: auto; display: block; margin: 0 auto;">
                 <br>
                 <figcaption class="figcaption-font" style="text-align: center; width: 660px; margin: 0 auto;">
-                    <strong>Table 3:</strong> Results across different training approaches (MLE, SR-L) and captions (COCO, BlendCap, HolisticCap) show the effectiveness of improved initialization with HolisticCap and SR-L fine-tuning.
+                    <strong>Table 3:</strong> Results across different training approaches and captions show the effectiveness of the rich initialization provided by HolisticCap and SR-L fine-tuning.
                 </figcaption>
             </figure>
         </d-figure>
@@ -563,146 +584,192 @@
         
         The model trained on COCO, due to the MLE objective, generates sparse captions that resemble the independent annotations of COCO. 
         This leads to a large gap between <span style="background-color: lightgray; color: black;">COCO</span> and <span style="background-color:lightgreen; color: black;">BlendCap</span> on RD100 (rows 1, 2), despite both having similar semantic information.
-        Interestingly, SR-L fine-tuning narrows this gap dramatically (rows 4, 5) while preserving caption faithfulness.
+        Interestingly, SR-L fine-tuning narrows this gap dramatically (rows 4, 5).
         </p>
-        <p style="font-size: 19px;">
-            <span style="color: rgb(31, 104, 252);"><strong><i>This is remarkable, as it demonstrates that self-retrieval fine-tuning steers the language model to unlock latent semantic information within its embedding space, even when it was initially obscured by MLE.</i><strong></span></p>
+        <d-figure>
+            <figure>
+                <img data-zoomable="" draggable="false" src="images/srl_finding2.png" alt="table1" style="width: 1150px; height: auto; display: block;margin-left:0px; margin-top: 30px;">
+                <br>
+            </figure>
+        </d-figure>
+        <!-- <p style="font-size: 19px;">
+            <span style="color: rgb(31, 104, 252);"><strong><i>This is remarkable, as it demonstrates that self-retrieval fine-tuning steers the language model to unlock latent semantic information within its embedding space, even when it was initially obscured by MLE.</i><strong></span></p> -->
         
+        <!---------------------------------------- SR-V ------------------------------------------>
+        <p style="font-size: 25px; font-weight: bold;"> Fine-tuning the Visual Encoder with Self-Retrieval (SR-V)</p>
+        <p style="font-size:19px;font-weight: normal;">
         
+        While fine-tuning CLIP with SR yields superior retrieval performance, it makes the captioner less faithful to the ground-truth captions.
+        </p>
+        <br><br>
         <!------------------------------------------------TRADEOFF --------------------------------------------------------------->
-        <br>
-        <p style="font-size: 25px;"> Retrieval Performance vs Caption Faithfulness : The Trade-off plaguing SR fine-tuning</p>
+        <p style="font-size: 25px; font-weight: bold;"> Retrieval Performance vs Caption Faithfulness : The Trade-off plaguing current SR approaches</p>
 
         <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: start;">
             <div style="flex: 1; min-width: 300px;margin-top: 20px; margin-left:20px ;">
                 <p style="font-size:19px;font-weight: normal;">
                 
                     <ul>
-                        <li style="line-height: 1.2; font-size: 19px; font-weight: normal; margin-bottom: 30px;"> We observe that captioning system's fine-tuned with vanilla SR-L (Dessì et al. (2023)) become less faithful to the ground-truth captions upon extended training.</li>
-                        <li style="line-height: 1.2; font-size: 19px; font-weight: normal; margin-bottom: 30px">As seen in Figure 5, retrieval performance continually improves while CIDEr dips significantly.</li>
+                        <li style="line-height: 1.2; font-size: 19px; font-weight: normal; margin-bottom: 30px;"> We observe that captioning system's fine-tuned with vanilla SR-L (Dessì et al. 2023) become less faithful to the ground-truth captions upon extended training.</li>
+                        <li style="line-height: 1.2; font-size: 19px; font-weight: normal; margin-bottom: 30px">As seen in <a href="#tradoff">Figure 5</a>, retrieval performance continually improves while CIDEr dips significantly.</li>
                         <li style="line-height: 1.2; font-size: 19px; font-weight: normal;"> We also find that captioners fine-tuned with SR, in a dash to enhance retrieval performance, have a tendency to <strong>hallucinate details</strong>.
                         </li>
+                        <li style="line-height: 1.2; font-size: 19px; font-weight: normal;">We also find that SR-V fine-tuning worsens <i>SR's tendency to hallucinate</i> and <i>attribute binding</i> in captioners.  </li>
                     </ul>
                 </p>        
             </div>              
             
-            <figure id ='table_2' style="flex: 1; min-width: 300px; margin: 0;">
+            <figure id ='tradeoff' style="flex: 1; min-width: 300px; margin: 0;">
                 <img data-zoomable="" draggable="false" src="images/tradeoff.png" alt="table1" style="width: 450px; height: auto; display: block;margin-left:60px;margin-top:10px">
                 <figcaption class="figcaption-font" style="text-align: center; margin-top:0px; margin-left:80px; width:450px;font-weight: normal;">
-                    <strong>Table 2:</strong> : R@1 scores for COCO and VCB captions evaluated on RD100 (100 random distractors) and TrueMatch.
+                    <strong>Figure 5:</strong> R@1 continually increases while CIDEr degrades when fine-tuning ClipCap with SR-L on COCO.
                 </figcaption>
             </figure>
         </div>  
-        <!---------------------------------------- SR-V ------------------------------------------>
-        <p style="font-size: 20px;"> Fine-tuning the Visual Encoder with Self-Retrieval (SR-V)</p>
-        <p style="font-size:19px;font-weight: normal;">
-        
-        While fine-tuning CLIP with SR yields superior retrieval performance, it makes the captioner less faithful to the ground-truth captions.
-        We also find that SR-V fine-tuning worsens <i>SR's tendency to hallucinate</i> and <i>attribute binding</i> in captioners. 
-        </p>
 
         
         <!------------------------------------------------BagCurri --------------------------------------------------------------->
         <br><br>
-        <p style="font-size: 25px;"> BagCurri: Designing a Self-Retrieval Learning Curriculum with Bags of Hard Negatives</p>
+        <p style="font-size: 25px;font-weight: bold;"> BagCurri:  Curriculum Training with Bags of Hard Negatives</p>
         <p style="font-size:19px;font-weight: normal;">
         
         For a stronger learning signal, we fine-tune with bags of highly similar images within a minibatch instead of retrieving against 99 random distractors (vanilla SR).
-        We also propose a curriculum over bag sizes (see Figure 6) to <i>more optimally leverage the contrastive SR reward</i>.</p>
-        
+        We also propose a curriculum over bag sizes (<a href="#bagcurri">see Figure 6</a>) to <i>more optimally leverage the contrastive SR reward</i>.</p>
+
+        <strong style="font-size: 20px;"">SR-V fine-tuning with BagCurri</strong> (row 7)
+        <ul style="padding-left: 30px;">
+            <li style="line-height: 1.2; font-size: 19px; font-weight: normal; margin-bottom: 5px;">Forces CLIP to learn fine-grained visual features leading to <i>superior retrieval performance</i> on TrueMatch. </li>
+            <li style="line-height: 1.2; font-size: 19px; font-weight: normal; margin-bottom: 0px">Reduces caption faithfulness (<span style="background-color: rgb(255, 204, 204); color: black; font-size:17px">row 7</span>), leading to increased hallucinations and worse attribute binding.</li>
+        </ul>
+
+        <strong style="font-size: 20px;"">SR-L fine-tuning with BagCurri</strong> (row 6)
+        <ul style="padding-left: 30px;">
+            <li style="line-height: 1.2; font-size: 19px; font-weight: normal; margin-bottom: 5px;">BagCurri is too challenging for SR-L fine-tuning, unable to yield meaningful retrieval gains over vanilla SR-L. </li>
+            <li style="line-height: 1.2; font-size: 19px; font-weight: normal; margin-bottom: 0px">Benefits from rich MLE initialization provided by <u>HolisticCap</u>  (<span style="background-color: rgb(0, 255, 0); color: black; font-size:17px">row 6</span>): <i>CIDEr score increases</i> compared to vanilla SR-L</li>.
+        </ul>
+        <br>
         <d-figure id="bagcurri" style="overflow-x: auto; width: 100%;" >
             <figure>
-                <img data-zoomable="" draggable="false" src="images/bagcurri_tab_fig.png" alt="table1" style="width: 1200px; height: auto; display: block;margin-left:-20px;">
+                <img data-zoomable="" draggable="false" src="images/bagcurri_tab_fig.png" alt="table1" style="width: 1100px; height: auto; display: block;margin-left:-20px;">
                 <br>
-                <figcaption class="figcaption-font" style="text-align: center; width: 1000px; margin: 0 auto;">
-                    <strong>Figure 1:</strong> Analyzing the benchmarks.
+                <figcaption class="figcaption-font" style="text-align: center; width: 1100px; margin: 0 auto;margin-left: -20px;">
+                    <strong>Table 4 (Left)</strong>: Impact of fine-tuning different components with BagCurri as compared against vanilla SR (SR-L). 
+                    <strong>Figure 6 (Right)</strong>: Our curriculum progressively increases bag sizes during training.
                 </figcaption>
             </figure>
         </d-figure>
 
-        <strong style="font-size: 20px;"">SR-V fine-tuning with BagCurri</strong>
-        <ul style="padding-left: 30px;">
-            <li style="line-height: 1.2; font-size: 19px; font-weight: normal; margin-bottom: 5px;">Forces CLIP to learn fine-grained visual features leading to <i>superior retrieval performance</i> on TrueMatch. </li>
-            <li style="line-height: 1.2; font-size: 19px; font-weight: normal; margin-bottom: 0px">Reduces caption faithfulness, leading to increased hallucinations and worse attribute binding.</li>
-        </ul>
-
-        <strong style="font-size: 20px;"">SR-L fine-tuning with BagCurri</strong>.
-        <ul style="padding-left: 30px;">
-            <li style="line-height: 1.2; font-size: 19px; font-weight: normal; margin-bottom: 5px;">BagCurri is too challenging for SR-L fine-tuning, unable to yield meaningful retrieval gains over vanilla SR-L. </li>
-            <li style="line-height: 1.2; font-size: 19px; font-weight: normal; margin-bottom: 0px">Benefits from rich MLE initialization provided by HolisticCap: <i>CIDEr score increases</i> compared to vanilla SR-L.</li>
-        </ul>
-        <br>
         <p style="font-size:19px; font-weight: normal;">
         <strong style="font-size: 20px;"">BEST OF BOTH WORLDS: SR-LV fine-tuning with BagCurri</strong>.
         <br>We initialize the captioner with HolisticCap and fine-tune both the language and visual components (SR-LV) with BagCurri.
         This results in the most visually fine-grained model while also improving CIDEr over the MLE trained captioner.
-        Notably, we find that <i>BagCurri is solely responsible for preserving caption faithfulness</i>, with CIDEr decreasing when bags are used without our curriculum.
+        Notably, we find that rich initialization provided by <u>HolisticCap</u> and <u>BagCurri</u> is <i>solely responsible for preserving caption faithfulness</i>, with CIDEr decreasing for COCO (<span style="background-color: rgb(255, 102, 102); color: black; font-size:17px">row 4</span>) or when bags are used without our curriculum.
         </p>
-        <p style="font-size: 19px;">
-        <span style="color: rgb(31, 104, 252);"><strong><i>This is momentous, as without modifying the model's architecture or reward function, we significantly outperform vanilla self-retrieval on TrueMatch (average 15%), while circumventing the caption faithfulness trade-off plaguing current SR approaches. </i><strong></span></p>
+        <d-figure>
+            <figure>
+                <img data-zoomable="" draggable="false" src="images/final_finding.png" alt="table1" style="width: 1150px; height: auto; display: block;margin-left: 0px; margin-top: 30px;">
+                <br>
+            </figure>
+        </d-figure>
+        <!-- <p style="font-size: 19px;">
+        <span style="color: rgb(31, 104, 252);"><strong><i>This is momentous, as without modifying the model's architecture or reward function, we significantly outperform vanilla self-retrieval on TrueMatch (average 15%), while circumventing the caption faithfulness trade-off plaguing current SR approaches. </i><strong></span></p> -->
         </p>
         <br>
         <!------------------------------------------------CIDEr + SR --------------------------------------------------------------->
-        <p style="font-size: 25px;"> CIDEr Optimization meets SR Fine-Tuning</p>
+        <p style="font-size: 25px;font-weight: bold;"> CIDEr Optimization meets SR Fine-Tuning</p>
 
         <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: start;">
             <div style="flex: 1; min-width: 300px;margin-top: 20px; margin-left:20px ;">
                 <p style="font-size:19px;font-weight: normal;">
                 
                     <ul>
-                        <li style="line-height: 1.2; font-size: 19px; font-weight: normal; margin-bottom: 30px;">CIDEr opt. (<span style="background-color: lightgreen; color: black;">row 8</span>) outperforms the MLE trained model (<span style="background-color:lightgray; color: black;">row 6</span>) on TrueMatch, only when initialized with HolisticCap.</li>
-                        <li style="line-height: 1.2; font-size: 19px; font-weight: normal;">Even CIDEr opt. (<span style="background-color: rgb(255, 102, 102); color: black;">row 5</span>) is unable to preseve caption faithfulness for COCO, underscoring the <u>importance of initialization</u> during SR fine-tuning. </li>
-                        <li style="line-height: 1.2; font-size: 19px; font-weight: normal; margin-bottom: 30px">Joint optimization with HolisticCap (<span style="background-color: rgb(0, 255, 0); color: black;">row 10</span>) results in the most discriminant model while <i>significantly improving CIDEr </i> over MLE pretraining (<span style="background-color:lightgray; color: black;">row 6</span>).</li>
+                        <li style="line-height: 1.2; font-size: 18.5px; font-weight: normal; margin-bottom: 30px;">CIDEr opt. (<span style="background-color: lightgreen; color: black; font-size:17px">row 8</span>) outperforms the MLE trained model (<span style="background-color:lightgray; color: black; font-size:17px">row 6</span>) on TrueMatch, only when initialized with HolisticCap.</li>
+                        <li style="line-height: 1.2; font-size: 18.5px; font-weight: normal;">Even CIDEr opt. (<span style="background-color: rgb(255, 102, 102); color: black;; font-size:17px">row 5</span>) is unable to preseve caption faithfulness for COCO, underscoring the <u>importance of initialization</u>    during SR fine-tuning. </li>
+                        <li style="line-height: 1.2; font-size: 18.5px; font-weight: normal; margin-bottom: 30px">Joint optimization with HolisticCap (<span style="background-color: rgb(0, 255, 0); color: black;; font-size:17px">row 10</span>) results in the most discriminant model while <i>significantly improving CIDEr </i> over MLE pretraining (<span style="background-color:lightgray; color: black;">row 6</span>).</li>
                         </li>
                     </ul>
                 </p>        
             </div>           
             
             <figure id ='table_2' style="flex: 1; min-width: 300px; margin: 0;">
-                <img data-zoomable="" draggable="false" src="images/table_5.png" alt="table1" style="width: 550px; height: auto; display: block;margin-left:60px;margin-top:-20px">
-                <figcaption class="figcaption-font" style="text-align: center; margin-top:0px; margin-left:80px; width:450px;font-weight: normal;">
-                    <strong>Table 2:</strong> : R@1 scores for COCO and VCB captions evaluated on RD100 (100 random distractors) and TrueMatch.
+                <img data-zoomable="" draggable="false" src="images/table_5.png" alt="table1" style="width: 550px; height: auto; display: block;margin-left:30px;margin-top:-60px">
+                <figcaption class="figcaption-font" style="text-align: center; margin-top:5px; margin-left:40px; width:550px;font-weight: normal;">
+                    <strong>Table 5:</strong> Impact of combining SR with CIDEr optimization. C: CIDEr,<br> SR: Self-Retrieval, and BC: SR with BagCurri.
                 </figcaption>
             </figure>
-        </div>  
+        </div>          
+        <!------------------------------------------------DIVERSITY --------------------------------------------------------------->
         
-
+        <p style="font-size: 25px;font-weight: bold; margin-top: 60px;"> Genating Diverse Captions</p>
         
+        <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: start;">
+            <div style="flex: 1; min-width: 300px;margin-top: 20px; margin-left:20px ;">
+                <p style="font-size:19px;font-weight: normal;">
+                Using our <u>training recipe with Visual Caption Boosting</u> guides the captioner away from the <i>language modelling priors</i>, improving caption diversity over <span style="background-color: rgb(212,212,212); color: black">COCO MLE</span> training by <strong>304%</strong>.
+            </p>        
+        </div>           
         
-         
-         
-        
-        <!-- moose -->
-        <!------------------------------------------------END --------------------------------------------------------------->
-
+        <figure id ='table_2' style="flex: 1; min-width: 300px; margin: 0;">
+            <img data-zoomable="" draggable="false" src="images/diversity.png" alt="table1" style="width: 450px; height: auto; display: block;margin-left:90px;margin-top:-20px">
+            <figcaption class="figcaption-font" style="text-align: center; margin-top:5px; margin-left:100px; width:450px;font-weight: normal;">
+                <strong>Table 6:</strong> : Number of words with frequency >= 5 on the COCO test set.
+            </figcaption>
+        </figure>
+        </div>      
+    
+    
+    
+    <!------------------------------------------------END --------------------------------------------------------------->
+    <!-- moose -->
         </d-article>
         <d-appendix>
-            <h3>BibTeX</h3>
+            <h3 style="font-weight:bold">BibTeX</h3>
             <p class="bibtex">
-                @misc{gaur2024no,<br>
-                &nbsp;&nbsp;title={Detect, Describe, Discriminate: Moving Beyond VQA for MLLM Evaluation},<br>
+                @misc{ndlb2024,<br>
+                &nbsp;&nbsp;title={{No Detail Left Behind: Revisiting Self-Retrieval for Fine-Grained Image Captioning},<br>
                 &nbsp;&nbsp;author={Manu Gaur and Darshan Singh S and Makarand Tapaswi}<br>
                 &nbsp;&nbsp;year={2024},<br>
-                &nbsp;&nbsp;eprint={2409.15125},<br>
+                &nbsp;&nbsp;eprint={2409.03025},<br>
                 &nbsp;&nbsp;archivePrefix={arXiv},<br>
                 &nbsp;&nbsp;primaryClass={cs.CV}<br>
                 }
             </p>
 
+            <h3 style="font-weight:bold">Bibliography</h3>
+            <ol>
+                <li style="font-family: 'Times New Roman', Times, serif;
+                font-size: 1em;
+                line-height: 1.5;
+                text-indent: -15px;
+                width: 1000px;">
+                    Cross-Domain Image Captioning with Discriminative Finetuning.<br>
+                    Roberto Dessì, Michele Bevilacqua, Eleonora Gualdoni, Nathanael Carraz Rakotonirina, Francesca Franzon, Marco Baroni. 2023. CVPR
+                </li>
+                <li style="font-family: 'Times New Roman', Times, serif;
+                font-size: 1em;
+                line-height: 1.5;
+                text-indent: -15px;
+                width: 1000px;">
+                    ClipCap: CLIP Prefix for Image Captioning.<br>
+                    Ron Mokady, Amir Hertz, Amit H. Bermano. 2021. arXiv:2111.09734
+                </li>
+            </ol>
+
             <d-footnote-list></d-footnote-list>
             <d-citation-list></d-citation-list>
           
         
-        <div id="bibliography">
-            <h3>Bibliography</h3>
+        <!-- <div id="bibliography">
+            <h3 style="font-weight: bold;">Bibliography</h3>
             <ul>
-                   
-                </ul>
-            </div>  
+                
+            </ul>
+        </div>   -->
             
             <h3>Acknowledgements</h3>
-            <p class="bibtex">
-                This project page is built upon <a href="https://tsb0601.github.io/mmvp_blog/">MMVP</a>.
+            <p style="font-family: 'Times New Roman', Times, serif;
+            font-size: 1em;">
+            This project page is built upon <a href="https://tsb0601.github.io/mmvp_blog/">MMVP</a>.
             </p>
         </d-appendix>
 
@@ -829,7 +896,7 @@
             padding: 0px;
             box-sizing: border-box;
          }
-
+  
 
     </style>
 </head>

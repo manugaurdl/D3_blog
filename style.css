@@ -26,7 +26,7 @@
 }
 
 .button-container a.button {
-  background-color: #fbf6e8; /* Yellow background */
+  background-color: rgb(252, 171, 113); /* Yellow background */
   color: #5c4b46; /* Black text */
   border: 2px solid #5b494a; /* Orange border */
   border-radius: 25px; /* Rounded borders */
@@ -39,7 +39,7 @@
 }
 
 .button-container a.button:hover {
-  background-color: #EAB682; /* Darker yellow background on hover */
+  background-color: #f5b16d; /* Darker yellow background on hover */
   color: #fff; /* White text on hover */
 }
 
@@ -298,4 +298,3 @@ d-article section{
   color: #007bff; /* Highlight the 'strong' element with a different color */
   /* text-decoration: underline; Underline the 'strong' text */
 }
-
