@@ -25,7 +25,13 @@
 
             
             <style>
-
+                .contents-sec {
+                    font-size: 16px;
+                    font-family:BlinkMacSystemFont;
+                    line-height:1.4em;
+                    font-weight:bold;
+                    color:rgb(87, 85, 85)
+                }
 
                 .bibtex {
                 font-family: 'Courier New', Courier, monospace;
@@ -328,15 +334,7 @@
 
 </script>
         
-        <!-- <d-contents>
-            <nav>
-                <h4>Contents</h4>
-                <div><a href="#mmvp">Moving Beyond VQA</a></div>
-                <div><a href="#patterns">MLLMs struggle with fine-grained Visual Discrimination</a></div>
-                <div><a href="#patterns">Points of Difference in D<sub>3</sub> image pairs</a></div>
-                <div><a href="#mof">Whitebox Evaluation of MLLMs</a></div>
-            </nav>
-        </d-contents> -->
+
 
         <!------------------------------------------------INTRODUCTION ---------------------------------------------------------------->
 
@@ -394,6 +392,15 @@
             </p> -->
             </p>
         </p>
+        
+        <d-contents>
+            <nav>
+                <p class="contents-sec" style="text-transform: uppercase; font-size: 17px;">contents</p>
+                <div><a href="#truematch" class="contents-sec">Evaluation</a></div>
+                <div><a href="#vcb" class="contents-sec">Data</div>
+                <div><a href="#training" class="contents-sec">Training</a></div>
+            </nav>
+        </d-contents>
 
         <div class="icon-row">
             <a href="#truematch" class="icon-link" target="_blank">
@@ -461,7 +468,6 @@
 
         <section id="vcb">
             <h2>II. <i>Visual Caption Boosting</i></h2>
-        </section>
         <p style="font-size: 19px;">
             Existing image captioning datasets like MSCOCO comprise generic annotations. 
             While recent works address this by synthetically expanding visual information within the captions, they are prone to inherit biases present in foundation models.
@@ -519,6 +525,8 @@
                 </figcaption>
             </figure>
         </div>
+    
+
         <d-figure>
             <figure>
                 <img data-zoomable="" draggable="false" src="images/vcb_finding.png" alt="table1" style="width: 1100px; height: auto; display: block;margin-left: -10px; margin-top: 20px;">
@@ -530,7 +538,7 @@
 
 
         <!---------------------------------------------Section 3: Training ----------------------------------------------------------->
-
+        </section>
         <section id="training">
             <h2 style="margin-top: -10px;">III. Guiding captioners away from their language modeling priors</h2>
 
@@ -720,7 +728,6 @@
     
     
     <!------------------------------------------------END --------------------------------------------------------------->
-    <!-- moose -->
         </d-article>
         <d-appendix>
             <h3 style="font-weight:bold">BibTeX</h3>
