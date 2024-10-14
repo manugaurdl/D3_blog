@@ -21,17 +21,22 @@
             
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Detect-Describe-Discriminate</title>
+            <title>No-Detail-Left-Behind</title>
 
             
             <style>
                 .contents-sec {
-                    font-size: 16px;
-                    font-family:BlinkMacSystemFont;
-                    line-height:1.4em;
-                    font-weight:bold;
-                    color:rgb(87, 85, 85)
+                    color: black;
+                    text-decoration: none;
                 }
+
+                /* Active class for clicked links */
+                .contents-sec.active {
+                    color: blue;
+                }
+                html {
+                scroll-behavior: smooth;
+                }                
 
                 .bibtex {
                 font-family: 'Courier New', Courier, monospace;
@@ -41,9 +46,7 @@
                 font-size: 1em;
                 width:770px
                 }
-                    /* h1, h2, h3, h4 {
-                   font-family: Lato, sans-serif;
-                }        */
+
                 d-article {
                 overflow: visible; /* Ensure the article container allows overflow */
                 }
@@ -201,7 +204,7 @@
               <h1 style="margin-left: 80px;"><i>No Detail Left Behind</i>:<br> Revisiting Self-Retrieval for Fine-Grained Image Captioning</h1>
               <div class="button-container" style="margin-left: 80px;">
                 <a href="https://arxiv.org/abs/2409.03025" class="button">Paper</a>
-                <a href="https://github.com/manugaurdl/EGG/tree/rll_refactor" class="button">Code</a>
+                <a href="https://github.com/manugaurdl/no-detail-left-behind" class="button">Code</a>
               </div>
             </div>
             <div class="header-image" style="width:800px;margin-top: 10px;">
@@ -228,37 +231,7 @@
                 </p>
             </div>
         </div>
-        
-        <!-------------------CAROUSEL GANG!!!!-------------->
-        
-        <!-- <div class="carousel-container">
-            <div class="carousel-slide active">
-                <img src="images/vqa_5.jpg" alt="Teaser Image 1">
-            </div>
-            <div class="carousel-slide active">
-                <img src="images/vqa_6.jpg" alt="Teaser Image 1">
-            </div>
-            <div class="carousel-slide active">
-                <img src="images/vqa_2.jpg" alt="Teaser Image 2">
-            </div>
-            <div class="carousel-slide active">
-                <img src="images/vqa_3.jpg" alt="Teaser Image 3">
-            </div>
-            <div class="carousel-slide active">
-                <img src="images/vqa_4.jpg" alt="Teaser Image 4">
-            </div>
 
-            <div class="carousel-controls">
-                <button class="carousel-button" onclick="moveSlide(-1)">&#10094;</button>
-                <button class="carousel-button" onclick="moveSlide(1)">&#10095;</button>
-            </div>
-            <div class="carousel-caption">
-                <p><i>Current MLLMs fail during D3 evaluation despite achieving perfect score in VQA, Swipe for more</i></p>
-            </div>
-        </div> -->
-
-        
-        
     
     <script>
     let slideIndex = 0;
@@ -332,110 +305,109 @@
             updateBibliography();
         });
 
+    //make d-contents a href blue
+    document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('.contents-sec');
+            
+            // Add event listener for click on each .contents-sec link
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Remove 'active' class from all .contents-sec links
+                    links.forEach(l => l.classList.remove('active'));
+                    
+                    // Add 'active' class to the clicked link
+                    this.classList.add('active');
+                });
+            });
+        });
 </script>
         
 
 
         <!------------------------------------------------INTRODUCTION ---------------------------------------------------------------->
-
-        <d-figure id="teaser" >
-            <figure>
-                <img data-zoomable="" draggable="false" src="images/motorcycle_teaser.png" alt="motorcycles" style="width: 1000px; height: auto; display: block; margin: 0 auto;">
-                <br>
-                <figcaption class="figcaption-font" style="text-align: center; width: 1000px; margin: 0 auto;">
-                    <strong>Figure 1</strong>:
-                    <!-- For a set of similar images, captioning systems struggle to uniquely describe each image.  -->
-                    A model trained on COCO with MLE (<strong>COCO MLE</strong>) generates the same description for each image.
-                    Our proposed method (<strong>OURS SR</strong>) generates discriminant captions while vanilla self-retrieval training(<strong>COCO SR</strong>) fails to, leading to hallucinations such as “two people” (middle).
-                </figcaption>
-            </figure>
-        </d-figure>
-        
-        <p>
-            Image captioning systems are unable to generate fine-grained captions, often using generic descriptions that fail to discriminate visually similar images. 
-            In this work, <i>we holistically improve captioning systems by making their <strong>Training</strong> and <strong>Evaluation</strong> more fine-grained</i>:
-            <br>
-            <br>
-
-            <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: start;">
-                <div style="flex: 1; min-width: 300px;margin-top: 20px;">
-                    <strong style="font-size: 22px">Towards Fine-grained Evaluation</strong>
-                    <p style="font-size: 19px;">
-                    <br>Traditional image captioning metrics fail to reward diversity or evaluate a model's fine-grained understanding ability.
-                    Our first contribution addresses this by proposing <strong>self-retrieval</strong> (setup shown in <a href="#sr_setup">Figure 2</a>) from a lens of evaluating captioning systems: 
-                    </p>
-                    <br>
-                    <ol>
-                        <li style="line-height: 1.5; font-size: 19px;"><strong><a href="#truematch">Fine-grained Evaluation</a></strong>: We introduce <strong><i>TrueMatch</i></strong>, a benchmark comprising bags of highly similar images that uses self-retrieval to assess the captioner's ability to capture subtle visual distinctions.</li>
-                    </ol>
-                </div>
-                
-                <figure id ='sr_setup' style="flex: 1; min-width: 300px; margin: 0; margin-top:-40px;">
-                    <img data-zoomable="" draggable="false" src="images/sr_setup.png" alt="motorcycles" style="width: 600px; height: auto; display: block;">
-                    <figcaption class="figcaption-font" style="text-align: center; margin-top: 10px; margin-left:30px;margin-right: -80px; width:550px">
-                        <strong>Figure 2:</strong> Self-retrieval judges the ability of a captioner to retrieve an image using its <i>generated caption</i> against of bag of distractor images. <a href="https://arxiv.org/pdf/2304.01662">Image source</a>.
-                    </figcaption>
-                </figure>
-            </div>            
-
-
-
-            <strong style="font-size: 22px"> Towards Fine-grained Training </strong><br>
-            <p>Image captioning systems are unable to generate fine-grained captions as they are trained on data that is either noisy (alt-text) or generic (human annotations). This is further exacerbated by MLE training that encourages captioning systems to overuse statistically probable phrases.
-            Our next contributions address this on two fronts: 
-            <ol start="2">
-                <li style="line-height: 1.5; font-size: 19px;"><strong><a href="#vcb">Data</a></strong>: We present <strong><i>Visual Caption Boosting</i></strong> to instill fine-grainedness in generic image captioning datasets while remaining anchored in human annotations.</li>
-                <li style="line-height: 1.5; font-size: 19px;"><strong><a href="#training">Self-Retrieval Training</a></strong>: We design a <i>training recipe</i> to optimally leverage the self-retrieval reward and instill fine-grained visual information in the captioner.   
-            </ol>
-            <!-- <p style="font-size: 19px;">
-            Jointly, they enable the captioner to describe fine-grained aspects in the image while preserving faithfulness to ground-truth captions.
-            </p> -->
-            </p>
-        </p>
-        
         <d-contents>
             <nav>
-                <p class="contents-sec" style="text-transform: uppercase; font-size: 17px;">contents</p>
-                <div><a href="#truematch" class="contents-sec">Evaluation</a></div>
-                <div><a href="#vcb" class="contents-sec">Data</div>
-                <div><a href="#training" class="contents-sec">Training</a></div>
+                <p class="contents-sec" style="text-transform: uppercase; font-size: 17px; font-family:Charter; line-height:1.4em; font-weight:bold"">contents</p>
+                <div><a href="#intro" style="font-size: 16px; font-family:Charter; line-height:1.4em; font-weight:bold">TL;DR</a></div>
+                <div><a href="#truematch" style="font-size: 16px; font-family:Charter; line-height:1.4em; font-weight:bold">Evaluation</a></div>
+                <div><a href="#vcb" style="font-size: 16px; font-family:Charter; line-height:1.4em; font-weight:bold">Data</div>
+                <div><a href="#training" style="font-size: 16px; font-family:Charter; line-height:1.4em; font-weight:bold">Training</a></div>
             </nav>
         </d-contents>
 
-        <div class="icon-row">
-            <a href="#truematch" class="icon-link" target="_blank">
-                <img src="images/icons/eval.svg" alt="Eval Logo" class="icon">
-                Evaluation
-            </a>
-            <a href="#vcb" class="icon-link" target="_blank">
-                <img src="images/icons/visual.svg" alt="Visual Representation Logo" class="icon">
-                Data
-            </a>
-            <a href="#training" class="icon-link" target="_blank">
-                <img src="images/icons/recipe.svg" alt="Recipe Logo" class="icon">
-                Training Recipe
-            </a>
-        </div>
 
-        <!-- <p class="click-hint" style="width: 5%;">
-            <img src="images/icons/click.gif" style="width: 1.5rem">
-            <strong>Click to jump to each section.</strong>
-        </p> -->
+        <section id="intro">
+        <p style="font-size: 22px;">
+            Image captioning systems are unable to generate fine-grained captions, often using generic descriptions that fail to discriminate visually similar images. 
+            We use <a href="#sr_setup">self-retrieval</a> to <i> improve <strong>training</strong> and <strong>evaluation</strong> of captioning systems.</i></p>
+        <d-figure id="sr_setup">
+            <figure>
+                <img data-zoomable="" draggable="false" src="images/sr_setup.png" style="width: 600px; height: auto; display: block; margin: 0 auto;">
+                <br>
+                <figcaption class="figcaption-font" style="text-align: center; width: 600px; margin: 0 auto;">
+                    <strong>Figure 1</strong>: Self-retrieval judges the ability of a captioner to retrieve an image using its <i>generated caption</i> against of bag of distractor images. <a href="https://arxiv.org/pdf/2304.01662">Image source</a>.
+                        
+                </figcaption>
+            </figure>
+        </d-figure>
+        <p style="font-size: 22px;margin-top: 10px;">
+
+            Our work is built upon three key components, each focused on making captioning systems more fine-grained:            
+        </p>
+
+
+            <ol style="margin-top:-10px">
+            </ol>
+
+
+            <ol start="1">
+                <li style="line-height: 1.5; font-size: 20px;"><strong><a href="#truematch"> Evaluation</a></strong>: Traditional image caption evaluation is neither fine-grained nor rewards diversity.  Hence, we present <strong><i>TrueMatch</i></strong>, a benchmark that uses self-retrieval to assess the captioner's ability to capture subtle visual distinctions.</li>
+                <li style="line-height: 1.5; font-size: 20px;"><strong><a href="#vcb">Data</a></strong>: 
+                    Training on noisy (alt-text) or generic (human annotations) datasets bottlenecks fine-grained caption generation. To this extent, we present <strong><i>Visual Caption Boosting</i></strong> to instill fine-grainedness in generic image captioning datasets while remaining anchored in human annotations.</li>
+                <li style="line-height: 1.5; font-size: 20px;"><strong><a href="#training">Self-Retrieval Training</a></strong>:
+                    MLE training encourages generation of statistically probable phrases. 
+                    We design a <strong><i>training recipe</i></strong> to address this
+                    by instilling discriminant visual information in the captioner.   
+            </ol>
+
+            <p style="font-size: 22px;margin-top: 20px;">
+            We find that captioning systems, irrespective of their size, struggle to capture fine-grained visual details leading to poor performance on <i>TrueMatch</i>. However, using our "plug and play" training recipe, we are able to outpefrom state-of-the-art open-source MLLMs while having 1-2 orders of magnitude fewer parameters.
+            </p>
+        </p>
+        </section>
+        <hr>
+    
+
+
+
 
         <!---------------------------------------------Section 1: Evaluation----------------------------------------------------->
         <section id="truematch">
             <h2>I. <i>TrueMatch</i>: Fine-grained Evaluation of Captioning Systems</h2>
             <p style="font-size: 19px;">
 
-                <!-- <u>Reference-based metrics</u> such as BLEU, CIDEr and SPICE tend to penalize specificity, often favoring generic descriptions (Wang et al., 2020). <u>Reference-free metrics</u> like CLIPScore (Hessel et al., 2021) alleviate this issue by directly measuring image-text similarity, but may fail to encourage diverse and discriminant captions. -->
-                <!-- Existing self-retrieval (SR) approaches require models to select the target image from a set of N random distractor images (Dessì et al., 2023) which often have simple differences (e.g. the primary object or scene), making it easy for captioning systems to distinguish between them. -->
-                <!-- In this work,  -->
-                We construct <strong>bags of highly similar images</strong> with <u>varying sizes</u>, where uniquely describing each image within a bag requires capturing various facets of visual understanding.
-                TrueMatch offers a comprehensive framework for holistically evaluating captioning systems with self-retrieval.
-                For example, retrieving the target image from <a href="#teaser"> Figure 1 </a> requires the caption to incorporate information about attributes <i>(red bike)</i> or orientation <i>(inverted body)</i>.             
+
+                <d-figure id="teaser" >
+                    <figure>
+                        <img data-zoomable="" draggable="false" src="images/motorcycle_teaser.png" alt="motorcycles" style="width: 1000px; height: auto; display: block; margin: 0 auto;">
+                        <br>
+                        <figcaption class="figcaption-font" style="text-align: center; width: 1000px; margin: 0 auto;">
+                            <strong>Figure 2</strong>:
+                            <!-- For a set of similar images, captioning systems struggle to uniquely describe each image.  -->
+                            <strong>An example from <i>TrueMatch</i>.</strong>
+                            (<strong>COCO MLE</strong>) produces the same caption.
+                            Vanilla self-retrieval training (<strong>COCO SR</strong>) hallucinates details such as “two people” (middle).
+                            Our proposed method (<strong>OURS SR</strong>) generates discriminant captions.
+                        </figcaption>
+                    </figure>
+                </d-figure>
+                
+                <p style="font-size: 19px;">TrueMatch comprises <strong>bags of highly similar images</strong> with <u>varying sizes</u>, where uniquely describing each image within a bag requires capturing various facets of visual understanding.
+                It offers a comprehensive framework for using self-retrieval to holistically evaluate captioning systems.
+                For example, retrieving the target image from <a href="#teaser"> Figure 2</a> requires the caption to incorporate information about attributes <i>(red bike)</i> or orientation <i>(inverted body)</i>.</p>
 
                 
-                <br><br>
+                <br>
             </p>
             <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: start;">
                 <div style="flex: 1; min-width: 300px;margin-top: 10px;">
@@ -451,7 +423,7 @@
                     </p>
                 </div>
                 
-                <figure id ='table_1' style="flex: 1; min-width: 300px; margin: 0;margin-top:-30px">
+                <figure id ='table_1' style="flex: 1; min-width: 300px; margin: 0;margin-top:0px">
                     <img data-zoomable="" draggable="false" src="images/table_1.png" alt="table1" style="width: 550px; height: auto; display: block;">
                     <figcaption class="figcaption-font" style="text-align: center; margin-top: 10px; width:550px">
                         <strong>Table 1:</strong> Recall@1 for self-retrieval evaluation with TrueMatch is reported. The number
@@ -459,7 +431,6 @@
                     </figcaption>
                 </figure>
             </div>  
-
 
 
         </section>
@@ -504,7 +475,7 @@
         </p>
         
         <div style="display: flex; flex-wrap: wrap; gap: 50px; align-items: start;">
-            <div style="flex: 1; min-width: 300px;margin-top: 30px;">
+            <div style="flex: 1; min-width: 300px;margin-top: 40px;">
                 <p style="font-size: 19px;">
                 <strong style="font-size: 25px">Benchmarking Visually Boosted Captions on <i>TrueMatch</i></strong>
                 <br>
@@ -519,7 +490,7 @@
             </div>              
             
             <figure id ='table_2' style="flex: 1; min-width: 300px; margin: 0;">
-                <img data-zoomable="" draggable="false" src="images/table_2.png" alt="table1" style="width: 450px; height: auto; display: block;margin-left:10px;margin-top:20px">
+                <img data-zoomable="" draggable="false" src="images/table_2.png" alt="table1" style="width: 450px; height: auto; display: block;margin-left:10px;margin-top:40px">
                 <figcaption class="figcaption-font" style="text-align: center; margin-top: 10px; margin-left:-20px;margin-right: -80px; width:500px">
                     <strong>Table 2:</strong> : R@1 scores for COCO and VCB captions evaluated on RD100 (100 random distractors) and TrueMatch.
                 </figcaption>
@@ -529,18 +500,16 @@
 
         <d-figure>
             <figure>
-                <img data-zoomable="" draggable="false" src="images/vcb_finding.png" alt="table1" style="width: 1100px; height: auto; display: block;margin-left: -10px; margin-top: 20px;">
+                <img data-zoomable="" draggable="false" src="images/vcb_finding.png" alt="table1" style="width: 1100px; height: auto; display: block;margin-left: -10px; margin-top: 50px;">
                 <br>
             </figure>
         </d-figure>
-        <!-- <p style="font-size: 19px;">
-            <span style="color: rgb(31, 104, 252);"><strong><i>This demonstrates the effectiveness of VCB in instilling fine-grained visual details into standard image captioning datasets.</i><strong></span></p> -->
 
 
         <!---------------------------------------------Section 3: Training ----------------------------------------------------------->
         </section>
         <section id="training">
-            <h2 style="margin-top: -10px;">III. Guiding captioners away from their language modeling priors</h2>
+            <h2 style="margin-top: 10px;">III. Guiding captioners away from their language modeling priors</h2>
 
             <!-- CLIPCAP -->
             <div style="display: flex; flex-wrap: wrap; gap: 20px; width: 1500px; align-items: start;">
@@ -576,8 +545,8 @@
         
         <strong> Self-retrieval fine-tuning benefits from a rich MLE initialization.</strong>
         SR-L fine-tuning with <span style="background-color: rgb(0, 255, 0); color: black;">HolisticCap</span> significantly outperforms <span style="background-color: lightgray; color: black;">COCO</span> (Dessì et al., 2023) on TrueMatch.
-        <!-- SR-L overcomes the limitations of MLE by making the captions more discriminant, leading to consistent improvements in RD100 and TrueMatch across all 3 captions (compare rows 1-4, 2-5, 3-6).  -->
         </p>
+
         <d-figure id="table3" >
             <figure>
                 <img data-zoomable="" draggable="false" src="images/table_3.png" alt="table1" style="width:660px; height: auto; display: block; margin: 0 auto;">
@@ -600,8 +569,6 @@
                 <br>
             </figure>
         </d-figure>
-        <!-- <p style="font-size: 19px;">
-            <span style="color: rgb(31, 104, 252);"><strong><i>This is remarkable, as it demonstrates that self-retrieval fine-tuning steers the language model to unlock latent semantic information within its embedding space, even when it was initially obscured by MLE.</i><strong></span></p> -->
         
         <!---------------------------------------- SR-V ------------------------------------------>
         <p style="font-size: 25px; font-weight: bold;"> Fine-tuning the Visual Encoder with Self-Retrieval (SR-V)</p>
@@ -675,12 +642,10 @@
         </p>
         <d-figure>
             <figure>
-                <img data-zoomable="" draggable="false" src="images/final_finding.png" alt="table1" style="width: 1150px; height: auto; display: block;margin-left: 0px; margin-top: 30px;">
+                <img data-zoomable="" draggable="false" src="images/final_finding.png" alt="table1" style="width: 1150px; height: auto; display: block;margin-left: 0px; margin-top: 40px;">
                 <br>
             </figure>
         </d-figure>
-        <!-- <p style="font-size: 19px;">
-        <span style="color: rgb(31, 104, 252);"><strong><i>This is momentous, as without modifying the model's architecture or reward function, we significantly outperform vanilla self-retrieval on TrueMatch (average 15%), while circumventing the caption faithfulness trade-off plaguing current SR approaches. </i><strong></span></p> -->
         </p>
         <br>
         <!------------------------------------------------CIDEr + SR --------------------------------------------------------------->
